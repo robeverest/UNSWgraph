@@ -18,6 +18,7 @@ public class Point2D {
 
     /**
      * Construct a point from the given x and y coordinates.
+     * 
      * @param x
      * @param y
      */
@@ -26,11 +27,12 @@ public class Point2D {
         this.x = x;
         this.y = y;
     }
-    
+
     /**
      * Draw this point as a dot on the canvas.
      * 
      * This is useful for debugging and for very trivial examples.
+     * 
      * @param gl
      */
     public void draw(GL3 gl) {
@@ -38,16 +40,17 @@ public class Point2D {
         buffer.put(0, this);
         int[] names = new int[1];
         gl.glGenBuffers(1, names, 0);
-        
+
         gl.glBindBuffer(GL.GL_ARRAY_BUFFER, names[0]);
-        
-        gl.glBufferData(GL.GL_ARRAY_BUFFER, 2*Float.BYTES, buffer.getBuffer(), GL.GL_STATIC_DRAW);
-        
+
+        gl.glBufferData(GL.GL_ARRAY_BUFFER, 2 * Float.BYTES, buffer.getBuffer(),
+                GL.GL_STATIC_DRAW);
+
         gl.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false, 0, 0);
         gl.glDrawArrays(GL.GL_POINTS, 0, 1);
-        
+
         gl.glDeleteBuffers(1, names, 0);
-        
+
     }
 
     public float getX() {

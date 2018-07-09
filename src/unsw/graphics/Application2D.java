@@ -30,12 +30,9 @@ public abstract class Application2D extends Application {
      * may be correspond to many hardware pixels on certain platforms (e.g.
      * Mac).
      * 
-     * @param title
-     *            The title of the window for this application
-     * @param width
-     *            The width of the window (in pixels)
-     * @param height
-     *            The height of the window (in pixels)
+     * @param title The title of the window for this application
+     * @param width The width of the window (in pixels)
+     * @param height The height of the window (in pixels)
      */
     public Application2D(String title, int width, int height) {
         super(title, width, height);
@@ -75,6 +72,6 @@ public abstract class Application2D extends Application {
 
     @Override
     public void reshape(GL3 gl, int width, int height) {
-        //We're not doing anything here yet
+        // We're not doing anything here yet
     }
 }

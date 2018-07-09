@@ -41,12 +41,9 @@ public abstract class Application implements GLEventListener {
      * Construct an Application. The window for the application will have the
      * given title, width, and height.
      * 
-     * @param title
-     *            What appears on the title bar of the application window
-     * @param width
-     *            The width of the window
-     * @param height
-     *            The height of the window
+     * @param title What appears on the title bar of the application window
+     * @param width The width of the window
+     * @param height The height of the window
      */
     public Application(String title, int width, int height) {
         this.title = title;
