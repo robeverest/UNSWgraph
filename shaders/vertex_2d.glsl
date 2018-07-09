@@ -1,4 +1,3 @@
-#version 150
 
 // Incoming vertex position
 in vec2 position;

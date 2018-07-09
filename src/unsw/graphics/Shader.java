@@ -14,16 +14,16 @@ import com.jogamp.opengl.util.glsl.ShaderProgram;
  *
  */
 public class Shader {
-    
+
     /**
      * The vertex position attribute for use with glAttribPointer.
      */
     public static final int POSITION = 0;
-    
+
     private int id;
 
     /**
-     * Construct a shader in the given OpenGL context. 
+     * Construct a shader in the given OpenGL context.
      * 
      * @param gl
      * @param vertex The file containing the vertex shader code.
@@ -31,11 +31,17 @@ public class Shader {
      */
     public Shader(GL3 gl, String vertex, String fragment) {
 
-        ShaderCode vertShader = ShaderCode.create(gl, GL3.GL_VERTEX_SHADER, 1, this.getClass(), new String[] {vertex}, false);
-        ShaderCode fragShader = ShaderCode.create(gl, GL3.GL_FRAGMENT_SHADER, 1, this.getClass(), new String[] {fragment}, false);
+        ShaderCode vertShader = ShaderCode.create(gl, GL3.GL_VERTEX_SHADER, 1,
+                this.getClass(), new String[] { vertex }, true);
+        ShaderCode fragShader = ShaderCode.create(gl, GL3.GL_FRAGMENT_SHADER, 1,
+                this.getClass(), new String[] { fragment }, true);
+
+        // We unfortunately have to do this for this library to be compatible
+        // with the older lab machines and the newer Macs
+        vertShader.addGLSLVersion(gl);
+        fragShader.addGLSLVersion(gl);
 
         ShaderProgram shaderProgram = new ShaderProgram();
-
         shaderProgram.add(vertShader);
         shaderProgram.add(fragShader);
 
@@ -44,11 +50,11 @@ public class Shader {
 
         id = shaderProgram.program();
         shaderProgram.link(gl, System.err);
-        
+
         gl.glEnableVertexAttribArray(POSITION);
         gl.glBindAttribLocation(id, POSITION, "position");
     }
-    
+
     /**
      * "Use" this shader in the given context.
      * 
@@ -59,7 +65,7 @@ public class Shader {
     public void use(GL3 gl) {
         gl.glUseProgram(id);
     }
-    
+
     /**
      * Destroy this shader, releasing its resources.
      * 
