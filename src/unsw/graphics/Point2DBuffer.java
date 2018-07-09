@@ -5,6 +5,7 @@ package unsw.graphics;
 
 import java.nio.Buffer;
 import java.nio.FloatBuffer;
+import java.util.List;
 
 import com.jogamp.opengl.util.GLBuffers;
 
@@ -32,6 +33,13 @@ public class Point2DBuffer {
         // Buffer stores pairs of floats
         this.capacity = capacity;
         floatBuffer = GLBuffers.newDirectFloatBuffer(capacity * 2);
+    }
+
+    public Point2DBuffer(List<Point2D> points) {
+        this(points.size());
+        for (int i = 0; i < capacity; i++) {
+            put(i, points.get(i));
+        }
     }
 
     /**
