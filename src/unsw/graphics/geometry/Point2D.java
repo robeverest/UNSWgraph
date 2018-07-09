@@ -4,6 +4,7 @@ import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL3;
 
 import unsw.graphics.Point2DBuffer;
+import unsw.graphics.Shader;
 
 /**
  * A point in 2D space.
@@ -46,7 +47,7 @@ public class Point2D {
         gl.glBufferData(GL.GL_ARRAY_BUFFER, 2 * Float.BYTES, buffer.getBuffer(),
                 GL.GL_STATIC_DRAW);
 
-        gl.glVertexAttribPointer(0, 2, GL.GL_FLOAT, false, 0, 0);
+        gl.glVertexAttribPointer(Shader.POSITION, 2, GL.GL_FLOAT, false, 0, 0);
         gl.glDrawArrays(GL.GL_POINTS, 0, 1);
 
         gl.glDeleteBuffers(1, names, 0);
