@@ -49,6 +49,7 @@ public abstract class Application implements GLEventListener {
         this.title = title;
         this.width = width;
         this.height = height;
+        this.background = new Color(1, 1, 1);
     }
 
     /**
