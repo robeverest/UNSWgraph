@@ -20,7 +20,7 @@ import unsw.graphics.geometry.Point2D;
 public class HelloDot extends Application2D {
 
     public HelloDot() {
-        super("SimpleExample", 800, 800);
+        super("HelloDot", 800, 800);
         this.setBackground(new Color(1f, 1f, 1f));
     }
 
