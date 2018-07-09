@@ -173,5 +173,9 @@ public abstract class Application implements GLEventListener {
     public void setBackground(Color background) {
         this.background = background;
     }
+    
+    public GLWindow getWindow() {
+        return window;
+    }
 
 }
