@@ -184,4 +184,22 @@ public abstract class Application implements GLEventListener {
         return window;
     }
 
+    /**
+     * Get the width (in pixels) of the window associated with this application
+     * 
+     * @return the width
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * Get the height (in pixels) of the window associated with this application
+     * 
+     * @return the height
+     */
+    public int getHeight() {
+        return height;
+    }
+
 }
