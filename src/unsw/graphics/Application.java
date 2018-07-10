@@ -175,6 +175,11 @@ public abstract class Application implements GLEventListener {
         this.background = background;
     }
     
+    /**
+     * Get the GLWindow that corresponds to this application.
+     * 
+     * @return
+     */
     public GLWindow getWindow() {
         return window;
     }
