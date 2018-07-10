@@ -5,6 +5,7 @@ package unsw.graphics;
 
 import java.awt.Color;
 
+import com.jogamp.nativewindow.NativeSurface;
 import com.jogamp.newt.event.WindowAdapter;
 import com.jogamp.newt.event.WindowEvent;
 import com.jogamp.newt.opengl.GLWindow;
@@ -19,8 +20,8 @@ import com.jogamp.opengl.util.FPSAnimator;
 /**
  * The basis for all UNSWgraph applications.
  * 
- * Applications in UNSWgraph are single window applications contain an OpenGL
- * canvas.
+ * Applications in UNSWgraph are single window applications containing an OpenGL
+ * surface.
  * 
  * @author Robert Clifton-Everest
  *
@@ -41,9 +42,13 @@ public abstract class Application implements GLEventListener {
      * Construct an Application. The window for the application will have the
      * given title, width, and height.
      * 
+     * The dimensions are given in window units. How many pixels this
+     * corresponds to is system dependent (e.g. it is different between Mac,
+     * Linux and Windows). See {@link NativeSurface} for more details.
+     * 
      * @param title What appears on the title bar of the application window
-     * @param width The width of the window
-     * @param height The height of the window
+     * @param width The width of the window (in window units)
+     * @param height The height of the window (in window units)
      */
     public Application(String title, int width, int height) {
         this.title = title;
@@ -174,7 +179,7 @@ public abstract class Application implements GLEventListener {
     public void setBackground(Color background) {
         this.background = background;
     }
-    
+
     /**
      * Get the GLWindow that corresponds to this application.
      * 
@@ -182,24 +187,6 @@ public abstract class Application implements GLEventListener {
      */
     public GLWindow getWindow() {
         return window;
-    }
-
-    /**
-     * Get the width (in pixels) of the window associated with this application
-     * 
-     * @return the width
-     */
-    public int getWidth() {
-        return width;
-    }
-
-    /**
-     * Get the height (in pixels) of the window associated with this application
-     * 
-     * @return the height
-     */
-    public int getHeight() {
-        return height;
     }
 
 }

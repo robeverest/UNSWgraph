@@ -26,13 +26,11 @@ public abstract class Application2D extends Application {
     /**
      * Construct a new 2D application.
      * 
-     * Note that pixel measurements correspond to the OS's notion of a pixel so
-     * may be correspond to many hardware pixels on certain platforms (e.g.
-     * Mac).
+     * Dimensions are in window units. See {@link Application}.
      * 
      * @param title The title of the window for this application
-     * @param width The width of the window (in pixels)
-     * @param height The height of the window (in pixels)
+     * @param width The width of the window (in window units)
+     * @param height The height of the window (in window units)
      */
     public Application2D(String title, int width, int height) {
         super(title, width, height);
