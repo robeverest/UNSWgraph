@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for UNSWgraph">
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value="${dir.buildfile}/.."/>
+	<property name="main-class" value=""/>
+    <property name="jarfile" value="${main-class}.jar"/>
+    <target name="create_run_jar">
+        <jar destfile="${jarfile}" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${dir.buildfile}/bin"/>
+        	<fileset dir="${dir.buildfile}" excludes="bin/**,src/**,lib/**,*.jar"/>
+
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/gluegen-rt-natives-linux-amd64.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/gluegen-rt-natives-macosx-universal.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/jogl-all-natives-linux-amd64.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/jogl-all-natives-macosx-universal.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/gluegen-rt-natives-linux-armv6.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/gluegen-rt-natives-windows-amd64.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/jogl-all-natives-linux-armv6.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/jogl-all-natives-windows-amd64.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/gluegen-rt-natives-linux-armv6hf.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/gluegen-rt-natives-windows-i586.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/jogl-all-natives-linux-armv6hf.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/jogl-all-natives-windows-i586.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/gluegen-rt-natives-linux-i586.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/gluegen-rt.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/jogl-all-natives-linux-i586.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/jogl-all.jar"/>
+
+        </jar>
+    </target>
+</project>
