@@ -29,6 +29,10 @@ public class LineStrip2D {
     public LineStrip2D() {
         points = new ArrayList<Point2D>();
     }
+    
+    public LineStrip2D(List<Point2D> points) {
+        points = new ArrayList<Point2D>(points);
+    }
 
     public void draw(GL3 gl) {
         Point2DBuffer buffer = new Point2DBuffer(points);
