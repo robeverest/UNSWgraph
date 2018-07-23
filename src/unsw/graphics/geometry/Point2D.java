@@ -24,7 +24,6 @@ public class Point2D {
      * @param y
      */
     public Point2D(float x, float y) {
-        super();
         this.x = x;
         this.y = y;
     }
