@@ -30,8 +30,33 @@ public class LineStrip2D {
         points = new ArrayList<Point2D>();
     }
     
+    /**
+     * Construct a line strip with the given points.
+     * @param points
+     */
     public LineStrip2D(List<Point2D> points) {
         this.points = new ArrayList<Point2D>(points);
+    }
+    
+    /**
+     * Construct a line strip with the given values representing the points.
+     * 
+     * Argument 2*i and 2*i+1 form point i on the strip. e.g.
+     * 
+     * <code>new LineStrip2D(0,0, 1,0, 1,1);</code>
+     * 
+     * creates a line strip going from (0,0) to (1,0) to (1,1).
+     * 
+     * @param values
+     */
+    public LineStrip2D(float... values) {
+        if (values.length % 2 != 0)
+            throw new IllegalArgumentException("Odd number of arguments");
+        List<Point2D> points = new ArrayList<Point2D>();
+        for (int i = 0; i < values.length / 2; i++) {
+            points.add(new Point2D(values[2*i], values[2*i + 1]));
+        }
+        this.points = points;
     }
 
     public void draw(GL3 gl) {

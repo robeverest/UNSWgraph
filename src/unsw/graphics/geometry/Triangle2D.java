@@ -34,6 +34,14 @@ public class Triangle2D {
     public Triangle2D(List<Point2D> points) {
         this.points = new ArrayList<Point2D>(points);
     }
+    
+    public Triangle2D(float x0, float y0, float x1, float y1, float x2, float y2) {
+        List<Point2D> points = new ArrayList<Point2D>();
+        points.add(new Point2D(x0, y0));
+        points.add(new Point2D(x1, y1));
+        points.add(new Point2D(x2, y2));
+        this.points = points;
+    }
 
     public void draw(GL3 gl) {        
         Point2DBuffer buffer = new Point2DBuffer(points);

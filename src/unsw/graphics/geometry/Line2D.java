@@ -19,9 +19,25 @@ import unsw.graphics.Shader;
 public class Line2D {
     private Point2D start, end;
 
+    /** 
+     * Construct a line from 'start' to 'end'
+     * @param start
+     * @param end
+     */
     public Line2D(Point2D start, Point2D end) {
         this.start = start;
         this.end = end;
+    }
+    
+    /**
+     * Construct a line from (x0,y0) to (x1,y1)
+     * @param x0
+     * @param y0
+     * @param x1
+     * @param y1
+     */
+    public Line2D(float x0, float y0, float x1, float y1) {
+        this(new Point2D(x0, y0), new Point2D(x1, y1));
     }
 
     public Point2D getStart() {
