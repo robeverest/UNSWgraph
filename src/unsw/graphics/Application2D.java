@@ -61,6 +61,9 @@ public abstract class Application2D extends Application {
 
         // Make points big (10 pixels wide) so we can see them clearly
         gl.glPointSize(10);
+        
+        // The default model transform is the identity transform
+        Shader.setModelMatrix(gl, Matrix3.identity());
     }
 
     @Override
