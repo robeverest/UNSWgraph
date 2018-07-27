@@ -3,6 +3,8 @@
  */
 package unsw.graphics;
 
+import java.awt.Color;
+
 import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.util.glsl.ShaderCode;
 import com.jogamp.opengl.util.glsl.ShaderProgram;
@@ -124,5 +126,17 @@ public class Shader {
         gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
         int viewLoc = gl.glGetUniformLocation(ids[0], "view_matrix");
         gl.glUniformMatrix3fv(viewLoc, 1, false, mat.getValues(), 0);
+    }
+    
+    /**
+     * Sets the pen color of the currently loaded shader.
+     * @param gl
+     * @param color
+     */
+    public static void setPenColor(GL3 gl, Color color) {
+        int ids[] = new int[1]; 
+        gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
+        int viewLoc = gl.glGetUniformLocation(ids[0], "input_color");
+        gl.glUniform3f(viewLoc, color.getRed(), color.getBlue(), color.getGreen());
     }
 }
