@@ -3,6 +3,8 @@
  */
 package unsw.graphics;
 
+import java.awt.Color;
+
 import com.jogamp.opengl.GL3;
 
 import unsw.graphics.geometry.Line2D;
@@ -115,7 +117,10 @@ public class CoordFrame2D {
     public void draw(GL3 gl) {
        Line2D iAxis = new Line2D(0f,0f, 1f,0f); 
        Line2D jAxis = new Line2D(0f,0f, 0f,1f);
+       Shader.setPenColor(gl, Color.RED);
        iAxis.draw(gl,this);
+       Shader.setPenColor(gl, Color.GREEN);
        jAxis.draw(gl,this);
+       Shader.setPenColor(gl, Color.BLACK);
     }
 }
