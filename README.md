@@ -6,9 +6,11 @@ The project is set up as an eclipse project, so can be imported via the import o
 
 ## Releases
 
-| Version | What                | Features                   | Zip file |
-| ------- | ------------------- | -------------------------- |--------- |
-| 0.1     | Week 1 starter code | Dots, dots and more dots.  | [v0.1.zip](https://github.com/robeverest/UNSWgraph/archive/v0.1.zip) |
+| Version | What                | Features                           | Zip file |
+| ------- | ------------------- | ---------------------------------- |--------- |
+| 0.1     | Week 1 starter code | Dots, dots and more dots.          | [v0.1.zip](https://github.com/robeverest/UNSWgraph/archive/v0.1.zip) |
+| 0.2     | Week 1 final code   | Lines, line strips and triangles.  | [v0.2.zip](https://github.com/robeverest/UNSWgraph/archive/v0.2.zip) |
+| 0.3     | Lab solution        | Polygons                           | [v0.3.zip](https://github.com/robeverest/UNSWgraph/archive/v0.3.zip) |
 
 ## Additional notes
 
