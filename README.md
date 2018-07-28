@@ -1,3 +1,5 @@
+# UNSW Graphics
+
 This library is being written as part of the Computer Graphics course at UNSW.
 
 If you wish to fork it to work on assignments, please ensure that you fork it into a **private** repository. GitHub offers free private repositories as part of it's student developer pack, available [here](https://education.github.com/pack).
@@ -6,11 +8,12 @@ The project is set up as an eclipse project, so can be imported via the import o
 
 ## Releases
 
-| Version | What                | Features                           | Zip file |
-| ------- | ------------------- | ---------------------------------- |--------- |
-| 0.1     | Week 1 starter code | Dots, dots and more dots.          | [v0.1.zip](https://github.com/robeverest/UNSWgraph/archive/v0.1.zip) |
-| 0.2     | Week 1 final code   | Lines, line strips and triangles.  | [v0.2.zip](https://github.com/robeverest/UNSWgraph/archive/v0.2.zip) |
-| 0.3     | Lab solution        | Polygons                           | [v0.3.zip](https://github.com/robeverest/UNSWgraph/archive/v0.3.zip) |
+| Version | What                | Features                                                        | Zip file                                                             |
+|:--------|:--------------------|:----------------------------------------------------------------|:---------------------------------------------------------------------|
+| 0.1     | Week 1 starter code | Dots, dots and more dots.                                       | [v0.1.zip](https://github.com/robeverest/UNSWgraph/archive/v0.1.zip) |
+| 0.2     | Week 1 final code   | Lines, line strips and triangles.                               | [v0.2.zip](https://github.com/robeverest/UNSWgraph/archive/v0.2.zip) |
+| 0.3     | Lab solution        | Polygons                                                        | [v0.3.zip](https://github.com/robeverest/UNSWgraph/archive/v0.3.zip) |
+| 0.4     | Week 2 starter code | Coordinate frames, more convenient constructors, and pen colour | [v0.3.zip](https://github.com/robeverest/UNSWgraph/archive/v0.3.zip) |
 
 ## Additional notes
 
