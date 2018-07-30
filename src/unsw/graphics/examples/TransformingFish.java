@@ -32,12 +32,12 @@ public class TransformingFish extends Application2D {
     public void display(GL3 gl) {
         super.display(gl);
         // Two fish, one transformed
-//        drawFish(gl, CoordFrame2D.identity());
-//        CoordFrame2D fishFrame = CoordFrame2D.identity()
-//                .translate(0.5f,-0.5f)
-//                .rotate(-30)
-//                .scale(0.5f, 0.5f);
-//        drawFish(gl, fishFrame);
+        drawFish(gl, CoordFrame2D.identity());
+        CoordFrame2D fishFrame = CoordFrame2D.identity()
+                .translate(0.5f,-0.5f)
+                .rotate(-30)
+                .scale(0.5f, 0.5f);
+        drawFish(gl, fishFrame);
         
         // One fish, non-uniform scale with rotate
 //        CoordFrame2D fishFrame = CoordFrame2D.identity()
@@ -46,12 +46,22 @@ public class TransformingFish extends Application2D {
 //        drawFish(gl, fishFrame);
         
         //Two fish, storing transformation history
-        CoordFrame2D fishFrame0 = CoordFrame2D.identity().scale(0.5f, 0.5f);
-        CoordFrame2D fishFrame1 = fishFrame0.translate(1, -1);
-        CoordFrame2D fishFrame2 = fishFrame0.translate(-1, 1);
+//        CoordFrame2D fishFrame0 = CoordFrame2D.identity().scale(0.5f, 0.5f);
+//        CoordFrame2D fishFrame1 = fishFrame0.translate(1, -1);
+//        CoordFrame2D fishFrame2 = fishFrame0.translate(-1, 1);
+//        
+//        drawFish(gl, fishFrame1);
+//        drawFish(gl, fishFrame2);
         
-        drawFish(gl, fishFrame1);
-        drawFish(gl, fishFrame2);
+        //Two fish, one animated
+//        float fishDisplacement = (System.currentTimeMillis() / 100 % 20) / 20f;
+//        CoordFrame2D fishFrame0 = CoordFrame2D.identity().scale(0.5f, 0.5f);
+//        CoordFrame2D fishFrame1 = fishFrame0.translate(fishDisplacement, -1);
+//        CoordFrame2D fishFrame2 = fishFrame0.translate(-1, 1);
+//
+//        drawFish(gl, fishFrame1);
+//        drawFish(gl, fishFrame2);
+      
     }
     
     public void drawFish(GL3 gl, CoordFrame2D frame) {
