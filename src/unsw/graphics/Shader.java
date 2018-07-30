@@ -137,6 +137,6 @@ public class Shader {
         int ids[] = new int[1]; 
         gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
         int viewLoc = gl.glGetUniformLocation(ids[0], "input_color");
-        gl.glUniform3f(viewLoc, color.getRed(), color.getBlue(), color.getGreen());
+        gl.glUniform3f(viewLoc, color.getRed(), color.getGreen(), color.getBlue());
     }
 }
