@@ -5,6 +5,8 @@ package unsw.graphics;
 
 import java.util.Arrays;
 
+import unsw.graphics.geometry.Point2D;
+
 /**
  * A vector of rank 3.
  * 
@@ -52,5 +54,13 @@ public class Vector3 {
             r += this.values[i] * b.values[i];
         }
         return r;
+    }
+    
+    /**
+     * Ignores the final column to create a 2D point
+     * @return
+     */
+    public Point2D asPoint2D() {
+        return new Point2D(values[0], values[1]);
     }
 }

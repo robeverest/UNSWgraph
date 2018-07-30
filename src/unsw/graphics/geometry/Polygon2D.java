@@ -69,6 +69,11 @@ public class Polygon2D {
         gl.glDeleteBuffers(1, names, 0);
     }
     
+    public void drawOutline(GL3 gl, CoordFrame2D frame) {
+        // TODO: You need to write this method.
+        // It should draw an outline of a polygon using GL_LINE_LOOP
+    }
+    
     /**
      * Draw the polygon on the canvas.
      * @param gl

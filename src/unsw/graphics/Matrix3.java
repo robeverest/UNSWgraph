@@ -151,6 +151,19 @@ public class Matrix3 {
         return new Matrix3(r);
     }
     
+    /**
+     * Multiply this matrix by the given (column) vector.
+     * @param mat
+     * @return
+     */
+    public Vector3 multiply(Vector3 v) {
+        float[] r = new float[3];
+        for (int y = 0; y < 3; y++) {
+            r[y] = getRow(y).dotp(v);
+        }
+        return new Vector3(r);
+    }
+    
     private Vector3 getColumn(int x) {
         float[] vec = new float[3];
         for (int y = 0; y < 3; y++) {
