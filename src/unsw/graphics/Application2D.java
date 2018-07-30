@@ -46,8 +46,8 @@ public abstract class Application2D extends Application {
     @Override
     public void display(GL3 gl) {
         // Set the clear color.
-        gl.glClearColor(getBackground().getRed(), getBackground().getGreen(),
-                getBackground().getBlue(), getBackground().getAlpha());
+        gl.glClearColor(getBackground().getRed()/255f, getBackground().getGreen()/255f,
+                getBackground().getBlue()/255f, getBackground().getAlpha()/255f);
 
         // Clear the screen with the defined clear color
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
