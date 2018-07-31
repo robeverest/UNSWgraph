@@ -76,6 +76,7 @@ public abstract class Application implements GLEventListener {
         window = GLWindow.create(glCapabilities);
         window.setTitle(title);
         window.setSize(width, height);
+        window.setResizable(false);
 
         // Turn on debug mode (REALLY USEFUL)
         window.setContextCreationFlags(GLContext.CTX_OPTION_DEBUG);
