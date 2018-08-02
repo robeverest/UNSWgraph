@@ -21,7 +21,6 @@ public class MoreInteresting extends Application2D {
 
     public MoreInteresting() {
         super("More interesting example", 600, 600);
-        setBackground(new Color(1, 1, 1));
     }
 
     public static void main(String[] args) {
