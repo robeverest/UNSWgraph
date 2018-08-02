@@ -189,5 +189,11 @@ public abstract class Application implements GLEventListener {
     public GLWindow getWindow() {
         return window;
     }
+    
+    /**
+     * Get the default shader associated with this application.
+     * @return
+     */
+    public abstract Shader getDefaultShader();
 
 }
