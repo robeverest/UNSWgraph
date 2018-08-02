@@ -78,4 +78,9 @@ public abstract class Application2D extends Application {
     public void reshape(GL3 gl, int width, int height) {
         // We're not doing anything here yet
     }
+    
+    @Override
+    public Shader getDefaultShader() {
+        return shader;
+    }
 }
