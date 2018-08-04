@@ -6,9 +6,12 @@ uniform mat3 model_matrix;
 
 uniform mat3 view_matrix;
 
+//Make the globalPosition an output so we can access it from the fragment shader
+out vec3 globalPosition;
+
 void main() {
 	// The global position is in homogenous coordinates
-    vec3 globalPosition = model_matrix * vec3(position, 1);
+    globalPosition = model_matrix * vec3(position, 1);
 
     // The position in camera coordinates
     vec3 viewPosition = view_matrix * globalPosition;
