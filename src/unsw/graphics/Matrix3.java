@@ -97,7 +97,7 @@ public class Matrix3 {
     }
     
     /**
-     * Create a horizontal sheer matrix.
+     * Create a horizontal shear matrix.
      * @param h
      * @return
      */
@@ -111,7 +111,7 @@ public class Matrix3 {
     }
     
     /**
-     * Create a vertical sheer matrix.
+     * Create a vertical shear matrix.
      * @param h
      * @return
      */

@@ -85,7 +85,7 @@ public class CoordFrame2D {
      * @param h
      * @return
      */
-    public CoordFrame2D horizontalSheer(float h) {
+    public CoordFrame2D horizontalShear(float h) {
         return new CoordFrame2D(matrix.multiply(Matrix3.horizontalShear(h)));
     }
 
@@ -95,7 +95,7 @@ public class CoordFrame2D {
      * @param v
      * @return
      */
-    public CoordFrame2D verticalSheer(float v) {
+    public CoordFrame2D verticalShear(float v) {
         return new CoordFrame2D(matrix.multiply(Matrix3.horizontalShear(v)));
     }
 
