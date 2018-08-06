@@ -17,6 +17,7 @@ The project is set up as an eclipse project, so can be imported via the import o
 | 0.5     | Week 2 final code   | Some more fish examples                                         | [v0.5.zip](https://github.com/robeverest/UNSWgraph/archive/v0.5.zip) |
 | 0.6     | Ass1 starter code   | Initial versions of assignment classes with stubs               | [v0.6.zip](https://github.com/robeverest/UNSWgraph/archive/v0.6.zip) |
 | 0.7     | Week 3 starter code | Starter code for mandelbrot example                             | [v0.7.zip](https://github.com/robeverest/UNSWgraph/archive/v0.7.zip) |
+| 0.8     | Week 3 final code   | Final code for mandelbrot example                               | [v0.8.zip](https://github.com/robeverest/UNSWgraph/archive/v0.8.zip) |
 
 ## Additional notes
 
