@@ -17,6 +17,7 @@ import com.jogamp.opengl.util.glsl.ShaderProgram;
  * shader there must be:
  *   - "in vec2 position"
  *   - "uniform mat3 model_matrix" 
+ *   - "uniform mat3 view_matrix"
  *
  * 
  * @author Robert Clifton-Everest
