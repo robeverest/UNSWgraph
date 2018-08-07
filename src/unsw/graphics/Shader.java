@@ -154,6 +154,18 @@ public class Shader {
     }
     
     /**
+     * Sets the projection matrix of the currently loaded shader.
+     * @param gl
+     * @param mat
+     */
+    public static void setProjMatrix(GL3 gl, Matrix4 mat) {
+        int ids[] = new int[1]; 
+        gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
+        int viewLoc = gl.glGetUniformLocation(ids[0], "proj_matrix");
+        gl.glUniformMatrix4fv(viewLoc, 1, false, mat.getValues(), 0);
+    }
+    
+    /**
      * Sets the pen color of the currently loaded shader.
      * @param gl
      * @param color
