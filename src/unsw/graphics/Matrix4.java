@@ -134,6 +134,27 @@ public class Matrix4 {
         return new Matrix4(values);
     }
     
+    /**
+     * Create an orthographic projection matrix.
+     * @param left
+     * @param right
+     * @param bottom
+     * @param top
+     * @param near
+     * @param far
+     * @return
+     */
+    public static Matrix4 orthographic(float left, float right, float bottom, float top, float near,
+            float far) {
+        float[] values = new float[] {
+            2/(right-left), 0, 0, 0,                                                          // i
+            0, 2/(top-bottom), 0, 0,                                                          // j
+            0, 0, -2/(far-near), 0,                                                           // k
+            -(right+left)/(right-left), -(top+bottom)/(top-bottom), -(far+near)/(far-near), 1 // phi
+        };
+        return new Matrix4(values);
+    }
+    
     @Override
     public String toString() {
         String str = "";

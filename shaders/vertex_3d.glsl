@@ -6,6 +6,8 @@ uniform mat4 model_matrix;
 
 uniform mat4 view_matrix;
 
+uniform mat4 proj_matrix;
+
 void main() {
 	// The global position is in homogenous coordinates
     vec4 globalPosition = model_matrix * vec4(position, 1);
@@ -13,6 +15,6 @@ void main() {
     // The position in camera coordinates
     vec4 viewPosition = view_matrix * globalPosition;
 
-    // For now the position is just the position in view coordinates
-    gl_Position = viewPosition;
+    // The position in CVV coordinates
+    gl_Position = proj_matrix * viewPosition;
 }

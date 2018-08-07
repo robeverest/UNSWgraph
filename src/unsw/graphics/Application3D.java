@@ -50,16 +50,13 @@ public abstract class Application3D extends Application {
                 getBackground().getBlue()/255f, getBackground().getAlpha()/255f);
 
         // Clear the screen with the defined clear color
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         
         // The default model transform is the identity transform
         Shader.setModelMatrix(gl, Matrix4.identity());
         
         // ... as is the view matrix
         Shader.setViewMatrix(gl, Matrix4.identity());
-        
-        // ... and the projection matrix
-        //TODO
         
         Shader.setPenColor(gl, Color.BLACK);
     }
@@ -77,6 +74,15 @@ public abstract class Application3D extends Application {
 
         // Make points big (10 pixels wide) so we can see them clearly
         gl.glPointSize(10);
+        
+        // Turn on the depth buffer
+        gl.glEnable(GL.GL_DEPTH_TEST);
+    }
+    
+    @Override
+    public void reshape(GL3 gl, int width, int height) {
+        // The projection matrix is orthographic by default
+        Shader.setProjMatrix(gl, Matrix4.orthographic(-1, 1, -1, 1, 1, 10));
     }
 
     @Override
