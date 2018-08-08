@@ -44,7 +44,7 @@ public class Cube extends Application3D {
     }
 
     /**
-     * Draw a cube centred around (0,0) with bounds of length 1 in each direction.
+     * Draw a cube centered around (0,0) with bounds of length 1 in each direction.
      * @param gl
      * @param frame
      */
