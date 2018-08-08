@@ -176,6 +176,21 @@ public class Matrix4 {
         return new Matrix4(values);
     }
     
+    /**
+     * Create a perspective projection matrix defined by a the vetical field of view, the aspect
+     * ratio and near and far clipping planes.
+     * @param fovy The field of view in degrees
+     * @param aspectRatio
+     * @param near
+     * @param far
+     * @return
+     */
+    public static Matrix4 perspective(float fovy, float aspectRatio, float near, float far) {
+        float halfHeight = (float) (near*Math.tan(Math.toRadians(fovy)/2));
+        return Matrix4.frustum(-aspectRatio*halfHeight, aspectRatio*halfHeight, 
+                -halfHeight, halfHeight, near, far);
+    }
+    
     @Override
     public String toString() {
         String str = "";
