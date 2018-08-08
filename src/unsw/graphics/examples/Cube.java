@@ -18,9 +18,13 @@ import unsw.graphics.geometry.TriangleFan3D;
  *
  */
 public class Cube extends Application3D {
+    
+    private float rotationX, rotationY;
 
     public Cube() {
         super("Cube", 600, 600);
+        rotationX = 0;
+        rotationY = 0;
     }
 
     @Override
@@ -40,7 +44,9 @@ public class Cube extends Application3D {
         CoordFrame3D frame = CoordFrame3D.identity()
                 .translate(0, 0, -2)
                 .scale(0.5f, 0.5f, 0.5f);
-        drawCube(gl, frame.rotateY(30).rotateX(30));
+        drawCube(gl, frame.rotateY(rotationY).rotateX(rotationX));
+        rotationX += 1;
+        rotationY += 1;
     }
 
     /**
