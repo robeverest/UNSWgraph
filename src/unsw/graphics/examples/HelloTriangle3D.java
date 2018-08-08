@@ -22,7 +22,8 @@ public class HelloTriangle3D extends Application3D {
 
     @Override
     public void reshape(GL3 gl, int width, int height) {
-        // Doing nothing, for now.
+        super.reshape(gl, width, height);
+        // Doing nothing else in this method, for now.
     }
 
     public static void main(String[] args) {
@@ -40,7 +41,6 @@ public class HelloTriangle3D extends Application3D {
         tri1.draw(gl);
         Shader.setPenColor(gl, Color.GREEN);
         tri2.draw(gl);
-
     }
 
 }

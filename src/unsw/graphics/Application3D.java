@@ -58,9 +58,6 @@ public abstract class Application3D extends Application {
         // ... as is the view matrix
         Shader.setViewMatrix(gl, Matrix4.identity());
         
-        // The projection matrix is orthographic
-        Shader.setProjMatrix(gl, Matrix4.orthographic(-1, 1, -1, 1, 0, 10));
-        
         Shader.setPenColor(gl, Color.BLACK);
     }
 
@@ -80,6 +77,12 @@ public abstract class Application3D extends Application {
         
         // Turn on the depth buffer
         gl.glEnable(GL.GL_DEPTH_TEST);
+    }
+    
+    @Override
+    public void reshape(GL3 gl, int width, int height) {
+        // The projection matrix is orthographic by default
+        Shader.setProjMatrix(gl, Matrix4.orthographic(-1, 1, -1, 1, 0, 10));
     }
 
     @Override
