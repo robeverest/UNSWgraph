@@ -6,6 +6,7 @@ import com.jogamp.opengl.GL3;
 
 import unsw.graphics.Application3D;
 import unsw.graphics.CoordFrame3D;
+import unsw.graphics.Matrix4;
 import unsw.graphics.Shader;
 import unsw.graphics.geometry.TriangleFan3D;
 
@@ -26,7 +27,7 @@ public class Cube extends Application3D {
     @Override
     public void reshape(GL3 gl, int width, int height) {
         super.reshape(gl, width, height);
-        // Doing nothing, for now.
+        Shader.setProjMatrix(gl, Matrix4.frustum(-1, 1, -1, 1, 1, 10));
     }
 
     public static void main(String[] args) {
