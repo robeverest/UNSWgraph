@@ -38,7 +38,7 @@ public class Cube extends Application3D {
     public void display(GL3 gl) {
         super.display(gl);
         CoordFrame3D frame = CoordFrame3D.identity()
-                .translate(0, 0, -1)
+                .translate(0, 0, -2)
                 .scale(0.5f, 0.5f, 0.5f);
         drawCube(gl, frame.rotateY(30).rotateX(30));
     }
