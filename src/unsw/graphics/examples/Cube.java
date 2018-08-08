@@ -61,7 +61,7 @@ public class Cube extends Application3D {
         
         // Right
         Shader.setPenColor(gl, Color.GREEN);
-        face.draw(gl, frame.rotateY(-90));
+        face.draw(gl, frame.rotateY(90));
         
         // Back
         Shader.setPenColor(gl, Color.CYAN);
