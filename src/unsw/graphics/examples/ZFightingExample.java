@@ -61,7 +61,16 @@ public class ZFightingExample extends Application3D implements MouseListener {
         TriangleFan3D tri2 = new TriangleFan3D(-0.5f,-2,-2, 1.5f,-2,-2, 1.5f,2,-2, -0.5f,2,-2);
        
         Shader.setPenColor(gl, Color.BLUE);
+        //enable polygon offset for filled polygons       
+        gl.glEnable(GL3.GL_POLYGON_OFFSET_FILL);
+        //push this polygon to the front a little
+        gl.glPolygonOffset(-1,-1); 
+        //push to the back a little
+        //gl.glPolygonOffset(1,1);
         tri1.draw(gl, frame);
+        
+        //If you do not turn this off again it will not work!
+        gl.glDisable(GL3.GL_POLYGON_OFFSET_FILL);
         
         Shader.setPenColor(gl, Color.GREEN);
         tri2.draw(gl, frame);
