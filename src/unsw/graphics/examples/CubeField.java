@@ -95,7 +95,7 @@ public class CubeField extends Application3D implements MouseListener{
         Shader.setPenColor(gl, Color.YELLOW);
         face.draw(gl, frame.rotateX(-90));
         
-        // Right
+        // Top
         Shader.setPenColor(gl, Color.MAGENTA);
         face.draw(gl, frame.rotateX(90));
     }
