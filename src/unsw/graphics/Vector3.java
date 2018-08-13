@@ -63,4 +63,23 @@ public class Vector3 {
     public Point2D asPoint2D() {
         return new Point2D(values[0], values[1]);
     }
+
+    /**
+     * Compute the cross product of this vector with v.
+     * @param v
+     * @return
+     */
+    public Vector3 cross(Vector3 v) {
+        return new Vector3(values[1]*v.values[2] - values[2]*v.values[1],
+                values[2]*v.values[0] - values[0]*v.values[2],
+                values[0]*v.values[1] - values[1]*v.values[0]);
+    }
+
+    /**
+     * Add 0 as a w component.
+     * @return
+     */
+    public Vector4 extend() {
+        return new Vector4(values[0], values[1], values[2], 0);
+    }
 }
