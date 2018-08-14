@@ -24,7 +24,7 @@ public class ModelViewer extends Application3D {
 
     public ModelViewer() throws IOException {
         super("Model viewer", 600, 600);
-        model = new TriangleMesh("res/models/bun_zipper_res4.ply");
+        model = new TriangleMesh("res/models/bunny_res4.ply", true);
     }
     
     @Override
