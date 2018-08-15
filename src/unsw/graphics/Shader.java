@@ -9,35 +9,39 @@ import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.util.glsl.ShaderCode;
 import com.jogamp.opengl.util.glsl.ShaderProgram;
 
+import unsw.graphics.geometry.Point3D;
+
 /**
  * A shader for use with OpenGL.
  * 
- * This class is used to load shaders into UNSWgraph. Note that for a shader to 
- * work in this library, there a number of required variables. In the vertex 
- * shader there must be:
- *   - "in vec2 position"
+ * This class is used to load shaders into UNSWgraph. Note that for a shader to
+ * work in this library, there a number of required variables. For 2D
+ * applications, in the vertex shader there must be: 
+ *   - "in vec2 position" 
  *   - "uniform mat3 model_matrix" 
  *   - "uniform mat3 view_matrix"
- *
+ * For 3D applications, there must be:
+ *   - "in vec3 position"
+ *   - "uniform mat4 model_matrix"
+ *   - "uniform mat4 view_matrix"
+ *   - "uniform mat4 proj_matrix"
  * 
  * @author Robert Clifton-Everest
  *
  */
 public class Shader {
 
-    //Vertex attributes
-    
+    // Vertex attributes
+
     /**
      * The vertex position attribute for use with glAttribPointer.
      */
     public static final int POSITION = 0;
     
-    //Uniform variables
-    
     /**
-     * The name of the model matrix input variable.
+     * The vertex normal attribute for use with glAttribPointer.
      */
-    public static final String MODEL_MATRIX = "model_matrix";
+    public static final int NORMAL = 1;
 
     private int id;
 
@@ -68,10 +72,16 @@ public class Shader {
             throw new RuntimeException("Invalid shader program");
 
         id = shaderProgram.program();
-        shaderProgram.link(gl, System.err);
-
-        gl.glEnableVertexAttribArray(POSITION);
+        
         gl.glBindAttribLocation(id, POSITION, "position");
+        gl.glBindAttribLocation(id, NORMAL, "normal");
+        
+        shaderProgram.link(gl, System.err);
+        
+        gl.glEnableVertexAttribArray(POSITION);
+        if (gl.glGetAttribLocation(id, "normal") != -1)
+            gl.glEnableVertexAttribArray(NORMAL);
+        
     }
 
     /**
@@ -107,73 +117,119 @@ public class Shader {
 
     /**
      * Sets the model matrix of the currently loaded shader.
+     * 
      * @param gl
      * @param mat
      */
     public static void setModelMatrix(GL3 gl, Matrix3 mat) {
-        int ids[] = new int[1]; 
+        int ids[] = new int[1];
         gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
         int modelLoc = gl.glGetUniformLocation(ids[0], "model_matrix");
         gl.glUniformMatrix3fv(modelLoc, 1, false, mat.getValues(), 0);
     }
-    
+
     /**
      * Sets the model matrix of the currently loaded shader.
+     * 
      * @param gl
      * @param mat
      */
     public static void setModelMatrix(GL3 gl, Matrix4 mat) {
-        int ids[] = new int[1]; 
+        int ids[] = new int[1];
         gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
         int modelLoc = gl.glGetUniformLocation(ids[0], "model_matrix");
         gl.glUniformMatrix4fv(modelLoc, 1, false, mat.getValues(), 0);
     }
-    
+
     /**
      * Sets the view matrix of the currently loaded shader.
+     * 
      * @param gl
      * @param mat
      */
     public static void setViewMatrix(GL3 gl, Matrix3 mat) {
-        int ids[] = new int[1]; 
+        int ids[] = new int[1];
         gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
         int viewLoc = gl.glGetUniformLocation(ids[0], "view_matrix");
         gl.glUniformMatrix3fv(viewLoc, 1, false, mat.getValues(), 0);
     }
-    
+
     /**
      * Sets the view matrix of the currently loaded shader.
+     * 
      * @param gl
      * @param mat
      */
     public static void setViewMatrix(GL3 gl, Matrix4 mat) {
-        int ids[] = new int[1]; 
+        int ids[] = new int[1];
         gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
         int viewLoc = gl.glGetUniformLocation(ids[0], "view_matrix");
         gl.glUniformMatrix4fv(viewLoc, 1, false, mat.getValues(), 0);
     }
-    
+
     /**
      * Sets the projection matrix of the currently loaded shader.
+     * 
      * @param gl
      * @param mat
      */
     public static void setProjMatrix(GL3 gl, Matrix4 mat) {
-        int ids[] = new int[1]; 
+        int ids[] = new int[1];
         gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
         int viewLoc = gl.glGetUniformLocation(ids[0], "proj_matrix");
         gl.glUniformMatrix4fv(viewLoc, 1, false, mat.getValues(), 0);
     }
-    
+
     /**
      * Sets the pen color of the currently loaded shader.
+     * 
      * @param gl
      * @param color
      */
     public static void setPenColor(GL3 gl, Color color) {
-        int ids[] = new int[1]; 
+        setColor(gl, "input_color", color);
+    }
+    
+    /**
+     * Set an arbitrary uniform variable of type 'vec3' with the given
+     * Point3D
+     * @param gl
+     * @param var
+     * @param point3d
+     */
+    public static void setPoint3D(GL3 gl, String var, Point3D point3d) {
+        int ids[] = new int[1];
         gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
-        int viewLoc = gl.glGetUniformLocation(ids[0], "input_color");
-        gl.glUniform3f(viewLoc, color.getRed()/255f, color.getGreen()/255f, color.getBlue()/255f);
+        int loc = gl.glGetUniformLocation(ids[0], var);
+        gl.glUniform3f(loc, point3d.getX(), point3d.getY(), point3d.getZ());
+    }
+    
+    /**
+     * Set an arbitrary uniform variable of type 'vec3' with the given
+     * Color.
+     * @param gl
+     * @param var
+     * @param color
+     */
+    public static void setColor(GL3 gl, String var, Color color) {
+        int ids[] = new int[1];
+        gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
+        int loc = gl.glGetUniformLocation(ids[0], var);
+        gl.glUniform3f(loc, color.getRed() / 255f, color.getGreen() / 255f,
+                color.getBlue() / 255f);
+    }
+    
+    /**
+     * Set an arbitrary uniform variable of type 'float' with the given
+     * float.
+     * @param gl
+     * @param var
+     * @param f
+     */
+    public static void setFloat(GL3 gl, String var, float f) {
+        int ids[] = new int[1];
+        gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
+        int loc = gl.glGetUniformLocation(ids[0], var);
+        gl.glUniform1f(loc, f);
     }
 }

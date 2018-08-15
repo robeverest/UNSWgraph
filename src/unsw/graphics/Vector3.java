@@ -82,4 +82,28 @@ public class Vector3 {
     public Vector4 extend() {
         return new Vector4(values[0], values[1], values[2], 0);
     }
+
+    public float getX() {
+        return values[0];
+    }
+    
+    public float getY() {
+        return values[1];
+    }
+    
+    public float getZ() {
+        return values[2];
+    }
+
+    public Vector3 normalize() {
+        return scale(1/length());
+    }
+
+    private Vector3 scale(float s) {
+        return new Vector3(values[0] * s, values[1] * s, values[2] * s);
+    }
+
+    private float length() {
+        return (float) Math.sqrt(values[0]*values[0] + values[1]*values[1] + values[2]*values[2]);
+    }
 }
