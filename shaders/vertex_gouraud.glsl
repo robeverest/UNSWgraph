@@ -34,8 +34,8 @@ void main() {
     gl_Position = proj_matrix * viewPosition;
 
     //Compute the normal in world coordinates
-    vec3 m = normalize(view_matrix * model_matrix * vec4(normal, 0)).xyz;
-    vec3 s = normalize(view_matrix * vec4(lightPos,1) - viewPosition).xyz;
+    vec3 m = normalize(model_matrix * vec4(normal, 0)).xyz;
+    vec3 s = normalize(vec4(lightPos,1) - viewPosition).xyz;
     vec3 v = normalize(-viewPosition.xyz);
 
     vec3 r = normalize(reflect(-s,m));
