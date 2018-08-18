@@ -15,8 +15,13 @@ uniform mat4 view_matrix;
 
 uniform mat4 proj_matrix;
 
+// Light properties
 uniform vec3 lightPos;
-uniform float ambient;
+uniform float lightIntensity;
+uniform float ambientIntensity;
+
+// Material properties
+uniform float ambientCoeff;
 uniform float diffuseCoeff;
 uniform float specularCoeff;
 uniform float phongExp;
@@ -33,19 +38,21 @@ void main() {
     // The position in CVV coordinates
     gl_Position = proj_matrix * viewPosition;
 
-    //Compute the normal in world coordinates
+    // Compute the normal in world coordinates
     vec3 m = normalize(model_matrix * vec4(normal, 0)).xyz;
+
+    // Compute the s, v and r vectors
     vec3 s = normalize(vec4(lightPos,1) - viewPosition).xyz;
     vec3 v = normalize(-viewPosition.xyz);
-
     vec3 r = normalize(reflect(-s,m));
 
-    float diffuse = max(diffuseCoeff*dot(m,s), 0.0);
+    float ambient = ambientIntensity*ambientCoeff;
+    float diffuse = max(lightIntensity*diffuseCoeff*dot(m,s), 0.0);
     float specular;
 
     // Only show specular reflections for the front face
     if (dot(m,s) > 0)
-        specular = max(specularCoeff*pow(dot(r,v),phongExp), 0.0);
+        specular = max(lightIntensity*specularCoeff*pow(dot(r,v),phongExp), 0.0);
     else
         specular = 0;
 

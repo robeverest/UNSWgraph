@@ -79,7 +79,11 @@ public class ModelViewer extends Application3D {
 
         // Set the lighting properties
         Shader.setPoint3D(gl, "lightPos", new Point3D(0, 0, 5));
-        Shader.setFloat(gl, "ambient", 0.2f);
+        Shader.setFloat(gl, "lightIntensity", 1);
+        Shader.setFloat(gl, "ambientIntensity", 0.2f);
+        
+        // Set the material properties
+        Shader.setFloat(gl, "ambientCoeff", 1);
         Shader.setFloat(gl, "diffuseCoeff", 0.5f);
         Shader.setFloat(gl, "specularCoeff", 0.8f);
         Shader.setFloat(gl, "phongExp", 16f);
