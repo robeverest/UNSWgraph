@@ -22,10 +22,17 @@ import unsw.graphics.scene.MathUtil;
 public class FlatShadedCube extends Application3D {
     
     private float rotationX, rotationY;
-    private float ambient;
+    
+    //Global properties of the light
+    private float ambientIntensity;
     private Point3D lightPos;
-    private float diffuseMaterial;
-    private float diffuseIntensity;
+    private float lightIntensity;
+    
+    // Properties of the material
+    private float ambientCoefficient;
+    private float diffuseCoefficient;
+    private float specularCoefficient;
+    private float phongExponent;
 
     public FlatShadedCube() {
         super("Cube", 600, 600);
@@ -33,10 +40,13 @@ public class FlatShadedCube extends Application3D {
         rotationY = 0;
         
         lightPos = new Point3D(0,0,3);
-        ambient = 0.1f;
-        diffuseIntensity = 0.3f;
-        diffuseMaterial = 1;
+        ambientIntensity = 0.1f;
+        lightIntensity = 1f;
         
+        ambientCoefficient = 1;
+        diffuseCoefficient = 0.4f;
+        specularCoefficient = 0.2f;
+        phongExponent = 8;
     }
 
     @Override
@@ -57,7 +67,7 @@ public class FlatShadedCube extends Application3D {
                 .translate(0, 0, -2)
                 .scale(0.5f, 0.5f, 0.5f);
         drawCube(gl, frame.rotateY(rotationY).rotateX(rotationX));
-        rotationX += 1;
+//        rotationX += 1;
         rotationY += 1;
     }
 
@@ -95,12 +105,31 @@ public class FlatShadedCube extends Application3D {
     }
 
     private Color shading(CoordFrame3D frame, Point3D point, Vector3 normal) {
+        // Compute the point and the normal in global coordinates
         Point3D p = frame.transform(point);
-        Vector3 n = frame.transform(normal);
+        Vector3 m = frame.transform(normal).normalize();
         
-        Vector3 l = lightPos.minus(p);
-        float diffuse = diffuseIntensity * diffuseMaterial * n.dotp(l);
-        float intensity = MathUtil.clamp(ambient + diffuse, 0, 1);; // + specular;
+        // The vector from the point to the light source. 
+        Vector3 s = lightPos.minus(p).normalize();
+        
+        // The ambient intensity (same for all points)
+        float ambient = ambientIntensity * ambientCoefficient;
+        
+        // The diffuse intensity at this point
+        float diffuse = lightIntensity * diffuseCoefficient * s.dotp(m);
+        
+        // The vector from the point to the camera
+        // Note: we're assuming the view transform is the identity transform
+        Vector3 v = p.asHomogenous().trim().scale(-1).normalize(); //v = normalize(-p)
+       
+        // The reflected vector
+        Vector3 r = s.negate().plus(m.scale(2*s.dotp(m)));
+        
+        // The specular intensity at this point
+        float specular = lightIntensity * specularCoefficient 
+                * (float) Math.pow(r.dotp(v), phongExponent);
+        
+        float intensity = MathUtil.clamp(ambient + diffuse + specular, 0, 1);
         return new Color(intensity, intensity, intensity);
     }
 }

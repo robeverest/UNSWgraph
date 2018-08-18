@@ -99,11 +99,19 @@ public class Vector3 {
         return scale(1/length());
     }
 
-    private Vector3 scale(float s) {
+    public Vector3 scale(float s) {
         return new Vector3(values[0] * s, values[1] * s, values[2] * s);
     }
 
     private float length() {
         return (float) Math.sqrt(values[0]*values[0] + values[1]*values[1] + values[2]*values[2]);
+    }
+
+    public Vector3 negate() {
+        return scale(-1);
+    }
+
+    public Vector3 plus(Vector3 b) {
+        return new Vector3(getX() + b.getX(), getY() + b.getY(), getZ() + b.getZ());
     }
 }
