@@ -114,5 +114,12 @@ public class ModelViewer extends Application3D {
 
         rotateY += 1;
     }
+    
+    @Override
+    public void destroy(GL3 gl) {
+        super.destroy(gl);
+        model.destroy(gl);
+        base.destroy(gl);
+    }
 
 }
