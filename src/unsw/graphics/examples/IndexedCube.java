@@ -24,6 +24,10 @@ import unsw.graphics.geometry.Point3D;
 public class IndexedCube extends Application3D {
 
     private float rotationY;
+    private Point3DBuffer vertexBuffer;
+    private IntBuffer indicesBuffer;
+    private int verticesName;
+    private int indicesName;
 
     public IndexedCube() {
         super("Cube", 600, 600);
@@ -61,7 +65,20 @@ public class IndexedCube extends Application3D {
      * @param frame
      */
     private void drawCube(GL3 gl, CoordFrame3D frame) {
-        Point3DBuffer vertexBuffer = new Point3DBuffer(Arrays.asList(
+        gl.glBindBuffer(GL.GL_ARRAY_BUFFER, verticesName);
+        gl.glVertexAttribPointer(Shader.POSITION, 3, GL.GL_FLOAT, false, 0, 0);
+        
+        gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indicesName);
+        
+        Shader.setModelMatrix(gl, frame.getMatrix());
+        gl.glDrawElements(GL.GL_TRIANGLES, indicesBuffer.capacity(), 
+                GL.GL_UNSIGNED_INT, 0);
+    }
+
+    @Override
+    public void init(GL3 gl) {
+        super.init(gl);
+        vertexBuffer = new Point3DBuffer(Arrays.asList(
                 new Point3D(-1,-1,1), 
                 new Point3D(1,-1,1), 
                 new Point3D(1,1,1),
@@ -71,7 +88,7 @@ public class IndexedCube extends Application3D {
                 new Point3D(1,1,-1),
                 new Point3D(-1,1,-1)));
         
-        IntBuffer indicesBuffer = GLBuffers.newDirectIntBuffer(new int[] {
+        indicesBuffer = GLBuffers.newDirectIntBuffer(new int[] {
             0,1,2,
             2,3,0,
             1,5,6,
@@ -89,22 +106,20 @@ public class IndexedCube extends Application3D {
         int[] names = new int[2];
         gl.glGenBuffers(2, names, 0);
         
-        int verticesName = names[0];
-        int indicesName = names[1];
+        verticesName = names[0];
+        indicesName = names[1];
         
         gl.glBindBuffer(GL.GL_ARRAY_BUFFER, verticesName);
         gl.glBufferData(GL.GL_ARRAY_BUFFER, vertexBuffer.capacity() * 3 * Float.BYTES,
                 vertexBuffer.getBuffer(), GL.GL_STATIC_DRAW);
-        
-        gl.glVertexAttribPointer(Shader.POSITION, 3, GL.GL_FLOAT, false, 0, 0);
-        
+       
         gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indicesName);
         gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer.capacity() * Integer.BYTES,
                 indicesBuffer, GL.GL_STATIC_DRAW);
-        
-        Shader.setModelMatrix(gl, frame.getMatrix());
-        gl.glDrawElements(GL.GL_TRIANGLES, indicesBuffer.capacity(), 
-                GL.GL_UNSIGNED_INT, 0);
-        gl.glDeleteBuffers(1, names, 0);
+    }
+    
+    @Override
+    public void destroy(GL3 gl) {
+        gl.glDeleteBuffers(2, new int[] { indicesName, verticesName }, 0);
     }
 }
