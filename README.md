@@ -20,7 +20,8 @@ The project is set up as an eclipse project, so can be imported via the import o
 | 0.8     | Week 3 final code   | Final code for mandelbrot example                               | [v0.8.zip](https://github.com/robeverest/UNSWgraph/archive/v0.8.zip)   |
 | 0.9     | Week 4 starter code | Starter code for 3D, depth and perspective                      | [v0.9.zip](https://github.com/robeverest/UNSWgraph/archive/v0.9.zip)   |
 | 0.10    | Week 4 final code   | Final code for 3D, depth and perspective                        | [v0.10.zip](https://github.com/robeverest/UNSWgraph/archive/v0.10.zip) |
-| 0.11    | Week 5 starter code | PLY importing and Gouraud shading                               |[v0.11.zip](https://github.com/robeverest/UNSWgraph/archive/v0.11.zip) |
+| 0.11    | Week 5 starter code | PLY importing and Gouraud shading                               | [v0.11.zip](https://github.com/robeverest/UNSWgraph/archive/v0.11.zip) |
+| 0.12    | Week 5 final code   | More efficient IndexedCube                                      | [v0.12.zip](https://github.com/robeverest/UNSWgraph/archive/v0.12.zip) |
 
 ## Additional notes
 
