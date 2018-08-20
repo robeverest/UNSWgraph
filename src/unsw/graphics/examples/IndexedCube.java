@@ -1,6 +1,7 @@
 package unsw.graphics.examples;
 
 import java.awt.Color;
+import java.io.IOException;
 import java.nio.IntBuffer;
 import java.util.Arrays;
 
@@ -14,6 +15,7 @@ import unsw.graphics.Matrix4;
 import unsw.graphics.Point3DBuffer;
 import unsw.graphics.Shader;
 import unsw.graphics.geometry.Point3D;
+import unsw.graphics.geometry.TriangleMesh;
 
 /**
  * A simple example that draws a cube using indexing.
@@ -28,6 +30,7 @@ public class IndexedCube extends Application3D {
     private IntBuffer indicesBuffer;
     private int verticesName;
     private int indicesName;
+    private TriangleMesh cube;
 
     public IndexedCube() {
         super("Cube", 600, 600);
@@ -52,7 +55,9 @@ public class IndexedCube extends Application3D {
         CoordFrame3D frame = CoordFrame3D.identity()
                 .translate(0, 0, -2)
                 .scale(0.5f, 0.5f, 0.5f);
-        drawCube(gl, frame.rotateY(rotationY));
+//        drawCube(gl, frame.rotateY(rotationY));
+        
+        cube.draw(gl, frame.rotateY(rotationY));
 
         rotationY += 1;
     }
@@ -116,10 +121,19 @@ public class IndexedCube extends Application3D {
         gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indicesName);
         gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer.capacity() * Integer.BYTES,
                 indicesBuffer, GL.GL_STATIC_DRAW);
+        
+        try {
+            cube = new TriangleMesh("res/models/cube.ply");
+            cube.init(gl);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     @Override
     public void destroy(GL3 gl) {
+        super.destroy(gl);
         gl.glDeleteBuffers(2, new int[] { indicesName, verticesName }, 0);
+        cube.destroy(gl);
     }
 }
