@@ -28,7 +28,7 @@ import unsw.graphics.geometry.TriangleMesh;
  */
 public class ModelViewer extends Application3D {
 
-    private static final boolean USE_LIGHTING = false;
+    private static final boolean USE_LIGHTING = true;
 
     private float rotateY;
 
@@ -48,8 +48,8 @@ public class ModelViewer extends Application3D {
         model.init(gl);
         base.init(gl);
         if (USE_LIGHTING) {
-            Shader shader = new Shader(gl, "shaders/vertex_gouraud.glsl",
-                    "shaders/fragment_gouraud.glsl");
+            Shader shader = new Shader(gl, "shaders/vertex_phong.glsl",
+                    "shaders/fragment_phong.glsl");
             shader.use(gl);
         }
     }
