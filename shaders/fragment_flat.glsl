@@ -3,7 +3,7 @@ out vec4 outputColor;
 
 uniform vec3 input_color;
 
-flat in float intensity;
+flat in vec3 intensity;
 
 void main()
 {
