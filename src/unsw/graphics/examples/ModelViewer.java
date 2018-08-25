@@ -79,13 +79,13 @@ public class ModelViewer extends Application3D {
 
         // Set the lighting properties
         Shader.setPoint3D(gl, "lightPos", new Point3D(0, 0, 5));
-        Shader.setFloat(gl, "lightIntensity", 1);
-        Shader.setFloat(gl, "ambientIntensity", 0.2f);
+        Shader.setColor(gl, "lightIntensity", Color.WHITE);
+        Shader.setColor(gl, "ambientIntensity", new Color(0.2f, 0.2f, 0.2f));
 
         // Set the material properties
-        Shader.setFloat(gl, "ambientCoeff", 1);
-        Shader.setFloat(gl, "diffuseCoeff", 0.5f);
-        Shader.setFloat(gl, "specularCoeff", 0.8f);
+        Shader.setColor(gl, "ambientCoeff", Color.WHITE);
+        Shader.setColor(gl, "diffuseCoeff", new Color(0.5f, 0.5f, 0.5f));
+        Shader.setColor(gl, "specularCoeff", new Color(0.8f, 0.8f, 0.8f));
         Shader.setFloat(gl, "phongExp", 16f);
 
         // The coordinate frame for both objects
@@ -105,7 +105,7 @@ public class ModelViewer extends Application3D {
 //         .translate(0,0.33f,0).scale(0.008f, 0.008f, 0.008f);
         // This translation and scale works well for the tree
 //           .translate(0,0.5f,0).scale(0.1f,0.1f,0.1f);
-        
+
         Shader.setPenColor(gl, new Color(0.5f, 0.5f, 0.5f));
         model.draw(gl, modelFrame);
 

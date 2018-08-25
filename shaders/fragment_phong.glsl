@@ -7,13 +7,13 @@ uniform mat4 view_matrix;
 
 // Light properties
 uniform vec3 lightPos;
-uniform float lightIntensity;
-uniform float ambientIntensity;
+uniform vec3 lightIntensity;
+uniform vec3 ambientIntensity;
 
 // Material properties
-uniform float ambientCoeff;
-uniform float diffuseCoeff;
-uniform float specularCoeff;
+uniform vec3 ambientCoeff;
+uniform vec3 diffuseCoeff;
+uniform vec3 specularCoeff;
 uniform float phongExp;
 
 in vec4 viewPosition;
@@ -27,17 +27,17 @@ void main()
     vec3 v = normalize(-viewPosition.xyz);
     vec3 r = normalize(reflect(-s,m_unit));
 
-    float ambient = ambientIntensity*ambientCoeff;
-    float diffuse = max(lightIntensity*diffuseCoeff*dot(m_unit,s), 0.0);
-    float specular;
+    vec3 ambient = ambientIntensity*ambientCoeff;
+    vec3 diffuse = max(lightIntensity*diffuseCoeff*dot(m_unit,s), 0.0);
+    vec3 specular;
 
     // Only show specular reflections for the front face
     if (dot(m_unit,s) > 0)
         specular = max(lightIntensity*specularCoeff*pow(dot(r,v),phongExp), 0.0);
     else
-        specular = 0;
+        specular = vec3(0);
 
-    float intensity = ambient + diffuse + specular;
+    vec3 intensity = ambient + diffuse + specular;
 
     outputColor = vec4(intensity*input_color, 0);
 }
