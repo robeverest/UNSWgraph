@@ -35,12 +35,16 @@ public class HelloTriangle3D extends Application3D {
     public void display(GL3 gl) {
         super.display(gl);
         
+        gl.glDepthMask(false);
+        // tri1 is in front of tri2
         Triangle3D tri1 = new Triangle3D(0,0,-1, 0.5f,0,-1, 0,1,-1);
         Triangle3D tri2 = new Triangle3D(-1,0,-2, 1,0,-2, 0,0.5f,-2);
-        Shader.setPenColor(gl, Color.BLUE);
-        tri1.draw(gl);
-        Shader.setPenColor(gl, Color.GREEN);
+        
+        Shader.setPenColor(gl, new Color(0, 1f, 0, 0.7f));
         tri2.draw(gl);
+        
+        Shader.setPenColor(gl, new Color(0,0,1f,0.7f));
+        tri1.draw(gl);
     }
 
 }

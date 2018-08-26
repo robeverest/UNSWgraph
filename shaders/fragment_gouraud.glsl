@@ -1,11 +1,11 @@
 
 out vec4 outputColor;
 
-uniform vec3 input_color;
+uniform vec4 input_color;
 
 in vec3 intensity;
 
 void main()
 {
-    outputColor = vec4(intensity*input_color, 0);
+    outputColor = vec4(intensity,1) * input_color;
 }

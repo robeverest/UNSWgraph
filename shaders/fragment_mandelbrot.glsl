@@ -1,7 +1,7 @@
 
 out vec4 outputColor;
 
-uniform vec3 input_color;
+uniform vec4 input_color;
 
 in vec2 localPosition;
 
