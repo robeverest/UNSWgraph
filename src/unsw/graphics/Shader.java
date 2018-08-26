@@ -187,7 +187,7 @@ public class Shader {
      * @param color
      */
     public static void setPenColor(GL3 gl, Color color) {
-        setColor(gl, "input_color", color);
+        setColorWithAlpha(gl, "input_color", color);
     }
     
     /**
@@ -217,6 +217,21 @@ public class Shader {
         int loc = gl.glGetUniformLocation(ids[0], var);
         gl.glUniform3f(loc, color.getRed() / 255f, color.getGreen() / 255f,
                 color.getBlue() / 255f);
+    }
+    
+    /**
+     * Set an arbitrary uniform variable of type 'vec4' with the given
+     * Color.
+     * @param gl
+     * @param var
+     * @param color
+     */
+    public static void setColorWithAlpha(GL3 gl, String var, Color color) {
+        int ids[] = new int[1];
+        gl.glGetIntegerv(GL3.GL_CURRENT_PROGRAM, ids, 0);
+        int loc = gl.glGetUniformLocation(ids[0], var);
+        gl.glUniform4f(loc, color.getRed() / 255f, color.getGreen() / 255f,
+                color.getBlue() / 255f, color.getAlpha() / 255f);
     }
     
     /**

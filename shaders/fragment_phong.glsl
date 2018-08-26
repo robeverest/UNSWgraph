@@ -1,7 +1,7 @@
 
 out vec4 outputColor;
 
-uniform vec3 input_color;
+uniform vec4 input_color;
 
 uniform mat4 view_matrix;
 
@@ -38,5 +38,5 @@ void main()
 
     vec3 intensity = ambient + diffuse + specular;
 
-    outputColor = vec4(intensity*input_color, 0);
+    outputColor = vec4(intensity,1)*input_color;
 }

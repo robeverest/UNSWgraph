@@ -3,6 +3,8 @@
  */
 package unsw.graphics;
 
+import java.awt.Color;
+
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL3;
 
@@ -57,6 +59,8 @@ public abstract class Application2D extends Application {
         
         // ... as is the view matrix
         Shader.setViewMatrix(gl, Matrix3.identity());
+        
+        Shader.setPenColor(gl, Color.BLACK);
     }
 
     @Override

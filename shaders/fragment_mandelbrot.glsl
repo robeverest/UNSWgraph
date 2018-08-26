@@ -1,14 +1,14 @@
 
 out vec4 outputColor;
 
-uniform vec3 input_color;
+uniform vec4 input_color;
 
 in vec3 globalPosition;
 
 void main()
 {
     // Output whatever was input
-	vec3 color = input_color;
+	vec4 color = input_color;
 
 	float R = globalPosition.x;
 	float Im = globalPosition.y;
