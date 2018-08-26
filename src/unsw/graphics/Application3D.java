@@ -58,6 +58,10 @@ public abstract class Application3D extends Application {
         // ... as is the view matrix
         Shader.setViewMatrix(gl, Matrix4.identity());
         
+        // Reshape is called here just to make sure that if the shader is changed,
+        // then the projection matrix property is set.
+        reshape(gl, getWindow().getWidth(), getWindow().getHeight());
+        
         Shader.setPenColor(gl, Color.BLACK);
     }
 
