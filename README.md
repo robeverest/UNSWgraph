@@ -22,6 +22,7 @@ The project is set up as an eclipse project, so can be imported via the import o
 | 0.10    | Week 4 final code   | Final code for 3D, depth and perspective                        | [v0.10.zip](https://github.com/robeverest/UNSWgraph/archive/v0.10.zip) |
 | 0.11    | Week 5 starter code | PLY importing and Gouraud shading                               | [v0.11.zip](https://github.com/robeverest/UNSWgraph/archive/v0.11.zip) |
 | 0.12    | Week 5 final code   | More efficient IndexedCube                                      | [v0.12.zip](https://github.com/robeverest/UNSWgraph/archive/v0.12.zip) |
+| 0.13    | Week 6 final code   | Phong shading and alpha blending                                | [v0.13.zip](https://github.com/robeverest/UNSWgraph/archive/v0.13.zip) |
 
 ## Additional notes
 
