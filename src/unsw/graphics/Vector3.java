@@ -6,6 +6,7 @@ package unsw.graphics;
 import java.util.Arrays;
 
 import unsw.graphics.geometry.Point2D;
+import unsw.graphics.geometry.Point3D;
 
 /**
  * A vector of rank 3.
@@ -113,5 +114,9 @@ public class Vector3 {
 
     public Vector3 plus(Vector3 b) {
         return new Vector3(getX() + b.getX(), getY() + b.getY(), getZ() + b.getZ());
+    }
+
+    public Point3D asPoint3D() {
+        return new Point3D(getX(), getY(), getZ());
     }
 }

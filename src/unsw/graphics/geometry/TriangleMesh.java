@@ -70,14 +70,52 @@ public class TriangleMesh {
      */
     private int indicesName;
     
+    /**
+     * Create a triangle mesh with the given lists of vertices, normals, and 
+     * indices
+     * @param vertices
+     * @param normals
+     * @param indices
+     */
     public TriangleMesh(List<Point3D> vertices, List<Vector3> normals, List<Integer> indices) {
-        this.vertices = new Point3DBuffer(vertices);
-        this.normals = new Point3DBuffer(normals.size());
+        this(vertices, indices, false);
         for (int i = 0; i < normals.size(); i++) {
             Vector3 n = normals.get(i);
             this.normals.put(i, n.getX(), n.getY(), n.getZ());
         }
+    }
+    
+    /**
+     * Create a triangle mesh with the given list of vertices and indices. The 
+     * third argument indicates whether to generate vertex normals. If false, 
+     * no normals are generated.
+     * @param vertices
+     * @param indices
+     * @param vertexNormals
+     */
+    public TriangleMesh(List<Point3D> vertices, List<Integer> indices, boolean vertexNormals) {
+        this.vertices = new Point3DBuffer(vertices);
         this.indices = GLBuffers.newDirectIntBuffer(ArrayUtils.toPrimitive(indices.toArray(new Integer[0])));
+        if (vertexNormals) {
+            normals = new Point3DBuffer(vertices.size());
+            computeVertexNormals();
+        }
+    }
+    
+    /**
+     * Create a triangle mesh with the given list of vertices (assumed to be in 
+     * the desired order for a triangle mesh). The second argument indicates 
+     * whether to generate face normals. If false, no normals are generated.
+     * @param vertices
+     * @param indices
+     * @param vertexNormals
+     */
+    public TriangleMesh(List<Point3D> vertices, boolean faceNormals) {
+        this.vertices = new Point3DBuffer(vertices);
+        if (faceNormals) {
+            normals = new Point3DBuffer(vertices.size());
+            computeFaceNormals();
+        }
     }
 
     /**
@@ -127,14 +165,28 @@ public class TriangleMesh {
         
         //Compute the normals
         if (vertexNormals)
-            computeNormals();
+            computeVertexNormals();
     }
+    
+    /**
+     * Compute face normals for the mesh assuming it is not indexed.
+     */
+    private void computeFaceNormals() {
+        for (int i = 0; i < vertices.capacity() / 3; i++) {
+            Vector3 n = normal(vertices.get(i*3), vertices.get(i*3 + 1),
+                    vertices.get(i*3 + 2));
+            normals.put(i*3, n.asPoint3D());
+            normals.put(i*3 + 1, n.asPoint3D());
+            normals.put(i*3 + 2, n.asPoint3D());
+        }
+    }
+
 
     /**
      * Compute normals for the mesh. Note that they are not normalised normals. 
      * If a shader depends on the normals, it must normalise them internally.
      */
-    private void computeNormals() {
+    private void computeVertexNormals() {
         // Initialise the normals to the zero vector
         for (int i = 0; i < normals.capacity(); i++) {
             normals.put(i, 0, 0, 0);
@@ -222,10 +274,12 @@ public class TriangleMesh {
                     GL.GL_STATIC_DRAW);
         }
 
-        // Copy the data for the indices
-        gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indicesName);
-        gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER,
-                indices.capacity() * Integer.BYTES, indices, GL.GL_STATIC_DRAW);
+        if (indices != null) {
+            // Copy the data for the indices
+            gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indicesName);
+            gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER,
+                    indices.capacity() * Integer.BYTES, indices, GL.GL_STATIC_DRAW);
+        }
     }
 
     public void draw(GL3 gl, CoordFrame3D frame) {
@@ -238,8 +292,12 @@ public class TriangleMesh {
             gl.glVertexAttribPointer(Shader.NORMAL, 3, GL.GL_FLOAT, false, 0, 0);
         }
         Shader.setModelMatrix(gl, frame.getMatrix());
-        gl.glDrawElements(GL3.GL_TRIANGLES, indices.capacity(),
-                GL.GL_UNSIGNED_INT, 0);
+        if (indices != null) {
+            gl.glDrawElements(GL3.GL_TRIANGLES, indices.capacity(),
+                    GL.GL_UNSIGNED_INT, 0);
+        } else {
+            gl.glDrawArrays(GL3.GL_TRIANGLES, 0, vertices.capacity());
+        }
     }
 
     public void destroy(GL3 gl) {
