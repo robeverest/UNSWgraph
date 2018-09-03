@@ -104,10 +104,18 @@ public class ConeExample extends Application3D implements MouseListener{
         List<Vector3> normals = new ArrayList<Vector3>();
         List<Integer> indices = new ArrayList<Integer>();
         
-        vertices.add(new Point3D(0, 0, height));
-        normals.add(new Vector3(0, 0, 1));
-        
         float tIncrement = 1f/NUM_SLICES;
+        for (int i = 0; i < NUM_SLICES; i++) {
+        	float t = i*tIncrement;
+        	vertices.add(new Point3D(0, 0, height));
+        
+        	float x = getX(t);
+            float y = getY(t);
+            
+            normals.add(new Vector3(x, y, radius/height));
+        }
+        
+        
         for(int i = 0; i < NUM_SLICES; i++) {
            float t = i*tIncrement;
            
@@ -116,11 +124,11 @@ public class ConeExample extends Application3D implements MouseListener{
  	   	  
            vertices.add(new Point3D(getX(t), getY(t), 0));
            
-           normals.add(new Vector3(x, y, 0));
+           normals.add(new Vector3(x, y, radius/height));
            
-           indices.add(i+1);
-           indices.add((i+1) % NUM_SLICES + 1);
-           indices.add(0);
+           indices.add(i+NUM_SLICES);
+           indices.add((i+1) % NUM_SLICES + NUM_SLICES);
+           indices.add(i);
         }
         
         TriangleMesh cone = new TriangleMesh(vertices, normals, indices);

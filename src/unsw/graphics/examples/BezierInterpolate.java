@@ -34,9 +34,10 @@ public class BezierInterpolate extends Application2D implements KeyListener {
         controlPoints = new Point2D[] {
             new Point2D(0, 0.5f),
             new Point2D(-1,1.5f),
-            new Point2D(0, 2.5f)  
+            new Point2D(0, 2.5f),
+            new Point2D(-1,4f)
         };
-        segments = 10;
+        segments = 32;
     }
 	
     public static void main(String[] args) {
@@ -46,15 +47,17 @@ public class BezierInterpolate extends Application2D implements KeyListener {
     }   
     
     private float getX(float t){
-    	return (1 - t)*(1 - t) * controlPoints[0].getX() + 
-    	        2*t * (1-t) * controlPoints[1].getX() + 
-    	        t*t * controlPoints[2].getX();
+    	return (1 - t)*(1 - t)*(1 - t) * controlPoints[0].getX() + 
+    	        3*t * (1-t) * (1 - t) * controlPoints[1].getX() + 
+    	        3*t * t * (1-t) * controlPoints[2].getX() + 
+    	        t*t*t * controlPoints[3].getX();
     }
     
     private float getY(float t){
-        return (1 - t)*(1 - t) * controlPoints[0].getY() + 
-                2*t * (1-t) * controlPoints[1].getY() + 
-                t*t * controlPoints[2].getY();
+    	return (1 - t)*(1 - t)*(1 - t) * controlPoints[0].getY() + 
+    	        3*t * (1-t) * (1 - t) * controlPoints[1].getY() + 
+    	        3*t * t * (1-t) * controlPoints[2].getY() + 
+    	        t*t*t * controlPoints[3].getY();
     }
     
     @Override
@@ -75,8 +78,11 @@ public class BezierInterpolate extends Application2D implements KeyListener {
     	Shader.setPenColor(gl, Color.GREEN);
         controlPoints[1].draw(gl);
         
-        Shader.setPenColor(gl, Color.BLACK);
+        Shader.setPenColor(gl, Color.BLUE);
         controlPoints[2].draw(gl);
+        
+        Shader.setPenColor(gl, Color.BLACK);
+        controlPoints[3].draw(gl);
         
         LineStrip2D curve = new LineStrip2D();
     	float dt = 1.0f/segments;

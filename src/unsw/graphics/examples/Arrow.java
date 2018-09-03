@@ -104,10 +104,13 @@ public class Arrow extends Application3D implements MouseListener{
         // The initial shape as its own mesh
         TriangleMesh front = new TriangleMesh(shape, shapeIndices, true);
         
+        Matrix4 m = Matrix4.translation(0, 0, -1).multiply(Matrix4.scale(2, 2, 1)
+        		.multiply(Matrix4.rotationZ(90)));
+        
         // The extruded shape
         List<Point3D> shapeExt= new ArrayList<>();
         for (Point3D p : shape)
-            shapeExt.add(p.translate(0,0,-1));
+            shapeExt.add(m.multiply(p.asHomogenous()).asPoint3D());
         
         // Indices for the extruded shape
         List<Integer> shapeExtIndices = new ArrayList<>(shapeIndices);
@@ -138,12 +141,12 @@ public class Arrow extends Application3D implements MouseListener{
             sides.add(tr);
             
             //Indices
-            sideIndices.add(6*i);
-            sideIndices.add(6*i + 1);
-            sideIndices.add(6*i + 2);
-            sideIndices.add(6*i + 3);
-            sideIndices.add(6*i + 4);
-            sideIndices.add(6*i + 5);
+//            sideIndices.add(6*i);
+//            sideIndices.add(6*i + 1);
+//            sideIndices.add(6*i + 2);
+//            sideIndices.add(6*i + 3);
+//            sideIndices.add(6*i + 4);
+//            sideIndices.add(6*i + 5);
         }
         
         TriangleMesh sidesMesh = new TriangleMesh(sides, true);

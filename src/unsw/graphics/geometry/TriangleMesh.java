@@ -79,6 +79,7 @@ public class TriangleMesh {
      */
     public TriangleMesh(List<Point3D> vertices, List<Vector3> normals, List<Integer> indices) {
         this(vertices, indices, false);
+        this.normals = new Point3DBuffer(normals.size());
         for (int i = 0; i < normals.size(); i++) {
             Vector3 n = normals.get(i);
             this.normals.put(i, n.getX(), n.getY(), n.getZ());
