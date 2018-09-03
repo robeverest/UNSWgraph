@@ -11,7 +11,7 @@
                 <attribute name="Class-Path" value="."/>
             </manifest>
             <fileset dir="${dir.buildfile}/bin"/>
-        	<fileset dir="${dir.buildfile}" excludes="bin/**,src/**,lib/**,*.jar"/>
+        	<fileset dir="${dir.buildfile}" excludes="bin/**,src/**,lib/**,*.jar,.git/**,res/models/big/**"/>
 
             <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/gluegen-rt-natives-linux-amd64.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="${dir.buildfile}/lib/gluegen-rt-natives-macosx-universal.jar"/>
