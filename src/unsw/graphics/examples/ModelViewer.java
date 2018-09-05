@@ -102,7 +102,10 @@ public class ModelViewer extends Application3D {
         // This scale works well for the apple
         // .scale(5, 5, 5);
         // This translation and scale works well for dragon2
-        // .translate(0,0.33f,0).scale(0.008f, 0.008f, 0.008f);
+//         .translate(0,0.33f,0).scale(0.008f, 0.008f, 0.008f);
+        // This translation and scale works well for the tree
+//           .translate(0,0.5f,0).scale(0.1f,0.1f,0.1f);
+        
         Shader.setPenColor(gl, new Color(0.5f, 0.5f, 0.5f));
         model.draw(gl, modelFrame);
 
