@@ -22,6 +22,7 @@ import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.util.GLBuffers;
 
 import unsw.graphics.CoordFrame3D;
+import unsw.graphics.Point2DBuffer;
 import unsw.graphics.Point3DBuffer;
 import unsw.graphics.Shader;
 import unsw.graphics.Vector3;
@@ -50,6 +51,11 @@ public class TriangleMesh {
     private Point3DBuffer normals;
 
     /**
+     * Contains the texture coordinates for all vertices.
+     */
+    private Point2DBuffer texCoords;
+
+    /**
      * Contains indices into the buffer of vertices and normals. Each set of 3
      * indices forms a triangle.
      */
@@ -64,6 +70,11 @@ public class TriangleMesh {
      * The name of the normal buffer according to OpenGL
      */
     private int normalsName;
+    
+    /**
+     * The name of the normal buffer according to OpenGL
+     */
+    private int texCoordsName;
 
     /**
      * The name of the indices buffer according to OpenGL
@@ -118,6 +129,63 @@ public class TriangleMesh {
             computeFaceNormals();
         }
     }
+    
+    /**
+     * Create a triangle mesh with the given lists of vertices, normals,
+     * indices and texture coordinates.
+     * @param vertices
+     * @param normals
+     * @param indices
+     * @param texCoords
+     */
+    public TriangleMesh(List<Point3D> vertices, List<Vector3> normals, 
+            List<Integer> indices, List<Point2D> texCoords) {
+        this(vertices, indices, false, texCoords);
+        this.normals = new Point3DBuffer(normals.size());
+        for (int i = 0; i < normals.size(); i++) {
+            Vector3 n = normals.get(i);
+            this.normals.put(i, n.getX(), n.getY(), n.getZ());
+        }
+    }
+    
+    /**
+     * Create a triangle mesh with the given list of vertices, indices and 
+     * texture coordinates. The third argument indicates whether to generate 
+     * vertex normals. If false, no normals are generated.
+     * @param vertices
+     * @param indices
+     * @param vertexNormals
+     * @param texCoords
+     */
+    public TriangleMesh(List<Point3D> vertices, List<Integer> indices, 
+            boolean vertexNormals, List<Point2D> texCoords) {
+        this.vertices = new Point3DBuffer(vertices);
+        this.indices = GLBuffers.newDirectIntBuffer(ArrayUtils.toPrimitive(indices.toArray(new Integer[0])));
+        if (vertexNormals) {
+            normals = new Point3DBuffer(vertices.size());
+            computeVertexNormals();
+        }
+        this.texCoords = new Point2DBuffer(texCoords);
+    }
+    
+    /**
+     * Create a triangle mesh with the given list of vertices (assumed to be in 
+     * the desired order for a triangle mesh) and texture coordinates. The 
+     * second argument indicates whether to generate face normals. If false, no 
+     * normals are generated.
+     * @param vertices
+     * @param indices
+     * @param vertexNormals
+     * @param texCoords
+     */
+    public TriangleMesh(List<Point3D> vertices, boolean faceNormals, List<Point2D> texCoords) {
+        this.vertices = new Point3DBuffer(vertices);
+        if (faceNormals) {
+            normals = new Point3DBuffer(vertices.size());
+            computeFaceNormals();
+        }
+        this.texCoords = new Point2DBuffer(texCoords);
+    }
 
     /**
      * Construct a triangle with the given PLY file.
@@ -126,19 +194,24 @@ public class TriangleMesh {
      * @throws IOException
      */
     public TriangleMesh(String plyFile) throws IOException {
-        this(plyFile, false);
+        this(plyFile, false, false);
     }
 
     /**
-     * Construct a triangle with the given PLY file. The third argument
+     * Construct a triangle with the given PLY file. The second argument
      * indicates whether to generate vertex normals. If false, no normals are
-     * generated.
+     * generated. Similarly, the third argument indicates whether to generate
+     * texture coordinates. If they are generated, each vertex will have a
+     * texture coordinate equal to its x and y position relative to the center 
+     * of base of the model and divided by the width and the height 
+     * respectively.
      * 
      * @param plyFile
      * @param vertexNormals
+     * @param texCoords
      * @throws IOException
      */
-    public TriangleMesh(String plyFile, boolean vertexNormals)
+    public TriangleMesh(String plyFile, boolean vertexNormals, boolean texCoords)
             throws IOException {
         // Setup an initial reader
         PlyReader rawReader = new PlyReaderFile(plyFile);
@@ -146,13 +219,16 @@ public class TriangleMesh {
         // Use a normalizing reader to get mesh only containing triangles
         NormalizingPlyReader reader = new NormalizingPlyReader(rawReader,
                 TesselationMode.TRIANGLES, NormalMode.PASS_THROUGH,
-                TextureMode.PASS_THROUGH);
+                texCoords ? TextureMode.XY : TextureMode.PASS_THROUGH);
 
         vertices = new Point3DBuffer(reader.getElementCount("vertex"));
         indices = GLBuffers
                 .newDirectIntBuffer(reader.getElementCount("face") * 3);
         if (vertexNormals)
             normals = new Point3DBuffer(reader.getElementCount("vertex"));
+        
+        if (texCoords)
+            this.texCoords = new Point2DBuffer(reader.getElementCount("vertex"));
 
         ElementReader elReader = reader.nextElementReader();
         while (elReader != null) {
@@ -249,6 +325,12 @@ public class TriangleMesh {
             float y = (float) vertex.getDouble("y");
             float z = (float) vertex.getDouble("z");
             vertices.put(verticesIndex, x, y, z);
+            
+            if (texCoords != null) {
+                float s = (float) vertex.getDouble("u");
+                float t = (float) vertex.getDouble("v");
+                texCoords.put(verticesIndex, s, t);
+            }
             verticesIndex++;
             vertex = elReader.readElement();
         }
@@ -256,11 +338,12 @@ public class TriangleMesh {
 
     public void init(GL3 gl) {
         // Generate the names for the buffers.
-        int[] names = new int[3];
-        gl.glGenBuffers(3, names, 0);
+        int[] names = new int[4];
+        gl.glGenBuffers(4, names, 0);
         verticesName = names[0];
         indicesName = names[1];
         normalsName = names[2];
+        texCoordsName = names[3];
 
         // Copy the data for the vertices
         gl.glBindBuffer(GL.GL_ARRAY_BUFFER, verticesName);
@@ -272,6 +355,13 @@ public class TriangleMesh {
             gl.glBindBuffer(GL.GL_ARRAY_BUFFER, normalsName);
             gl.glBufferData(GL.GL_ARRAY_BUFFER,
                     normals.capacity() * 3 * Float.BYTES, normals.getBuffer(),
+                    GL.GL_STATIC_DRAW);
+        }
+        
+        if (texCoords != null) {
+            gl.glBindBuffer(GL.GL_ARRAY_BUFFER, texCoordsName);
+            gl.glBufferData(GL.GL_ARRAY_BUFFER,
+                    texCoords.capacity() * 2 * Float.BYTES, texCoords.getBuffer(),
                     GL.GL_STATIC_DRAW);
         }
 
@@ -292,6 +382,10 @@ public class TriangleMesh {
             gl.glBindBuffer(GL.GL_ARRAY_BUFFER, normalsName);
             gl.glVertexAttribPointer(Shader.NORMAL, 3, GL.GL_FLOAT, false, 0, 0);
         }
+        if (texCoords != null) {
+            gl.glBindBuffer(GL.GL_ARRAY_BUFFER, texCoordsName);
+            gl.glVertexAttribPointer(Shader.TEX_COORD, 2, GL.GL_FLOAT, false, 0, 0);
+        }
         Shader.setModelMatrix(gl, frame.getMatrix());
         if (indices != null) {
             gl.glDrawElements(GL3.GL_TRIANGLES, indices.capacity(),
@@ -302,7 +396,7 @@ public class TriangleMesh {
     }
 
     public void destroy(GL3 gl) {
-        gl.glDeleteBuffers(3, new int[] { verticesName, indicesName, normalsName }, 0);
+        gl.glDeleteBuffers(4, new int[] { verticesName, indicesName, normalsName, texCoordsName }, 0);
     }
 
     public void draw(GL3 gl) {
