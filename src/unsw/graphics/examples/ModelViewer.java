@@ -94,7 +94,7 @@ public class ModelViewer extends Application3D {
             Shader.setInt(gl, "tex", 0);
             
             gl.glActiveTexture(GL.GL_TEXTURE0);
-            gl.glBindTexture(GL.GL_TEXTURE_2D, texture.getTextureId());
+            gl.glBindTexture(GL.GL_TEXTURE_2D, texture.getId());
             
             Shader.setPenColor(gl, Color.WHITE);
         } else {

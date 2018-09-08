@@ -129,7 +129,7 @@ public class SimpleTextureExample extends Application3D implements KeyListener {
 
         gl.glActiveTexture(GL.GL_TEXTURE0);
         gl.glBindTexture(GL.GL_TEXTURE_2D,
-                myTextures[currIndex].getTextureId());
+                myTextures[currIndex].getId());
 
         Shader.setViewMatrix(gl, Matrix4.translation(0, 0, -20));
 

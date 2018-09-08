@@ -95,7 +95,7 @@ public class Texture {
 
     }
 
-    public int getTextureId() {
+    public int getId() {
         return id;
     }
 
