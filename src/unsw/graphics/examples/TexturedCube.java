@@ -19,7 +19,7 @@ import unsw.graphics.geometry.Point2D;
 import unsw.graphics.geometry.Point3D;
 
 /**
- * A simple example that draws a cube using indexing.
+ * A simple example that draws a textured cube using indexing.
  * 
  * @author Robert Clifton-Everest
  *
