@@ -78,6 +78,14 @@ public class Texture {
 
     }
 
+    /**
+     * Create a texture from the given ByteBuffer. Buffer is assumed to be RGBA
+     * format.
+     * @param gl
+     * @param buffer
+     * @param size
+     * @param mipmaps
+     */
     public Texture(GL3 gl, ByteBuffer buffer, int size, boolean mipmaps) {
         mipMapEnabled = mipmaps;
         int[] ids = new int[1];
@@ -90,6 +98,26 @@ public class Texture {
         // Specify image data for currently active texture object.
         gl.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, size, size, 0,
                 GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, buffer);
+
+        setFilters(gl);
+
+    }
+    
+    /**
+     * Create a texture with NO associated buffer.
+     * @param gl
+     * @param buffer
+     * @param size
+     * @param mipmaps
+     */
+    public Texture(GL3 gl, boolean mipmaps) {
+        mipMapEnabled = mipmaps;
+        int[] ids = new int[1];
+        gl.glGenTextures(1, ids, 0);
+        
+        id = ids[0];
+        
+        gl.glBindTexture(GL.GL_TEXTURE_2D, id);
 
         setFilters(gl);
 
