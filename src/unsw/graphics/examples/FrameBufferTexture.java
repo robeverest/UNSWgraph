@@ -100,7 +100,7 @@ public class FrameBufferTexture extends Application3D {
         transformingFish.init(gl);
         transformingFish.display(gl);
         
-        texture = new Texture(gl, false);
+        texture = new Texture(gl);
         gl.glBindTexture(GL.GL_TEXTURE_2D, texture.getId());
         
         int[] viewport = new int[4];

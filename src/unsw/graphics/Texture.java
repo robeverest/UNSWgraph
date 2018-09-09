@@ -108,10 +108,9 @@ public class Texture {
      * @param gl
      * @param buffer
      * @param size
-     * @param mipmaps
      */
-    public Texture(GL3 gl, boolean mipmaps) {
-        mipMapEnabled = mipmaps;
+    public Texture(GL3 gl) {
+        mipMapEnabled = false;
         int[] ids = new int[1];
         gl.glGenTextures(1, ids, 0);
         
