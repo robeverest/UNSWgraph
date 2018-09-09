@@ -33,6 +33,8 @@ public class ModelViewer extends Application3D {
     private static final boolean USE_LIGHTING = true;
     
     private static final boolean USE_TEXTURE = false;
+    
+    private static final boolean USE_CUBEMAP = false; //Lighting must also be on
 
     private float rotateY;
 
@@ -53,12 +55,22 @@ public class ModelViewer extends Application3D {
         super.init(gl);
         model.init(gl);
         base.init(gl);
-        if (USE_TEXTURE) {
+        if (USE_CUBEMAP) {
+            texture = new Texture(gl, "res/textures/darkskies/darkskies_lf.png",
+                    "res/textures/darkskies/darkskies_rt.png",
+                    "res/textures/darkskies/darkskies_dn.png",
+                    "res/textures/darkskies/darkskies_up.png",
+                    "res/textures/darkskies/darkskies_ft.png",
+                    "res/textures/darkskies/darkskies_bk.png", "png", false);
+        } else if (USE_TEXTURE) {
             texture = new Texture(gl, "res/textures/BrightPurpleMarble.png", "png", false);
         }
         
         Shader shader = null;
-        if (USE_LIGHTING && USE_TEXTURE) {
+        if (USE_CUBEMAP) {
+            shader = new Shader(gl, "shaders/vertex_phong.glsl",
+                    "shaders/fragment_cubemap.glsl");
+        } else if (USE_LIGHTING && USE_TEXTURE) {
             shader = new Shader(gl, "shaders/vertex_tex_phong.glsl",
                     "shaders/fragment_tex_phong.glsl");
         } else if (USE_LIGHTING) {
@@ -90,7 +102,14 @@ public class ModelViewer extends Application3D {
         super.display(gl);
         
         //Set the texture if we're using it.
-        if (USE_TEXTURE) {
+        if (USE_CUBEMAP) {
+            Shader.setInt(gl, "tex", 0);
+            
+            gl.glActiveTexture(GL.GL_TEXTURE0);
+            gl.glBindTexture(GL.GL_TEXTURE_CUBE_MAP, texture.getId());
+            
+            Shader.setPenColor(gl, Color.WHITE);
+        } else if (USE_TEXTURE) {
             Shader.setInt(gl, "tex", 0);
             
             gl.glActiveTexture(GL.GL_TEXTURE0);
@@ -145,7 +164,8 @@ public class ModelViewer extends Application3D {
         // A blue base for the model to sit on.
         CoordFrame3D baseFrame = 
                 frame.translate(0, -0.5f, 0).scale(0.5f, 0.5f, 0.5f);
-        Shader.setPenColor(gl, Color.BLUE);
+        if (!USE_TEXTURE && !USE_CUBEMAP)
+            Shader.setPenColor(gl, Color.BLUE);
         base.draw(gl, baseFrame);
 
         rotateY += 1;
@@ -156,6 +176,7 @@ public class ModelViewer extends Application3D {
         super.destroy(gl);
         model.destroy(gl);
         base.destroy(gl);
+        texture.destroy(gl);
     }
 
 }
