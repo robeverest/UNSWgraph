@@ -125,11 +125,14 @@ public class SimpleTextureExample extends Application3D implements KeyListener {
     public void display(GL3 gl) {
         super.display(gl);
 
-        Shader.setInt(gl, "tex", 0);
+        Shader.setInt(gl, "tex", 0); // tex in the shader is the 0'th active texture
 
-        gl.glActiveTexture(GL.GL_TEXTURE0);
+        gl.glActiveTexture(GL.GL_TEXTURE0); // All future texture operations are 
+                                            // for the 0'th active texture
         gl.glBindTexture(GL.GL_TEXTURE_2D,
-                myTextures[currIndex].getId());
+                myTextures[currIndex].getId()); // Bind the texture id of the 
+                                                // texture we want to the 0th 
+                                                // active texture
 
         Shader.setViewMatrix(gl, Matrix4.translation(0, 0, -20));
 
