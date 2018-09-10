@@ -10,5 +10,5 @@ in vec2 texCoordFrag;
 void main()
 {
     // Output whatever was input
-    outputColor = texture(tex, texCoordFrag);
+    outputColor = input_color*texture(tex, texCoordFrag);
 }

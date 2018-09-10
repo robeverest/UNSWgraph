@@ -142,17 +142,17 @@ public class SimpleTextureExample extends Application3D implements KeyListener {
 //                color, 0);
 
         // Set wrap mode for texture in S direction
-//        gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S,
-//                GL.GL_REPEAT);
+        gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_S,
+                GL.GL_MIRRORED_REPEAT);
         // Set wrap mode for texture in T direction
-//        gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T,
-//                GL3.GL_REPEAT);
+        gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_WRAP_T,
+                GL3.GL_MIRRORED_REPEAT);
 
         int[] names = new int[4];
         gl.glGenBuffers(4, names, 0);
 
         // A green quad drawn as a triangle fan
-        Shader.setPenColor(gl, Color.GREEN);
+        Shader.setPenColor(gl, Color.WHITE);
         Point3DBuffer quad = new Point3DBuffer(4);
         quad.put(0, -10, 0, 0);
         quad.put(1, 10, 0, 0);
@@ -160,10 +160,10 @@ public class SimpleTextureExample extends Application3D implements KeyListener {
         quad.put(3, -10, 10, 0);
 
         Point2DBuffer quadTexCoords = new Point2DBuffer(4);
-        quadTexCoords.put(0, 0, 0);
-        quadTexCoords.put(1, 1, 0);
-        quadTexCoords.put(2, 1, 1);
-        quadTexCoords.put(3, 0, 1);
+        quadTexCoords.put(0, 0f, 0f);
+        quadTexCoords.put(1, 1f, 0f);
+        quadTexCoords.put(2, 1f, 1f);
+        quadTexCoords.put(3, 0f, 1f);
 
         // Copy across the buffer for the vertex positions
         gl.glBindBuffer(GL.GL_ARRAY_BUFFER, names[0]);

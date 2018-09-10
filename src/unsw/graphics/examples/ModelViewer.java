@@ -32,7 +32,7 @@ public class ModelViewer extends Application3D {
 
     private static final boolean USE_LIGHTING = true;
     
-    private static final boolean USE_TEXTURE = false;
+    private static final boolean USE_TEXTURE = true;
     
     private static final boolean USE_CUBEMAP = false; //Lighting must also be on
 
@@ -152,7 +152,7 @@ public class ModelViewer extends Application3D {
                 // dragon1
                 .translate(0, -0.2f, 0).scale(5, 5, 5);
         // This scale works well for the apple
-        // .scale(5, 5, 5);
+//         .scale(5, 5, 5);
         // This translation and scale works well for dragon2
 //         .translate(0,0.33f,0).scale(0.008f, 0.008f, 0.008f);
         // This translation and scale works well for the tree

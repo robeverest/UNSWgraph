@@ -67,13 +67,21 @@ public class Texture {
         if (mipMapEnabled) {
             // TODO Set texture parameters to enable automatic mipmap generation
             // and bilinear/trilinear filtering
-
+        	gl.glGenerateMipmap(GL.GL_TEXTURE_2D);
+            gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER,
+                    GL.GL_LINEAR);
+            gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER,
+                    GL.GL_LINEAR_MIPMAP_LINEAR);
+            
+            float fLargest[] = new float[1]; 
+            gl.glGetFloatv(GL.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, fLargest,0);
+            gl.glTexParameterf(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAX_ANISOTROPY_EXT, fLargest[0]);
         } else {
             // Set texture parameters to enable bilinear filtering.
             gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER,
-                    GL.GL_NEAREST);
+                    GL.GL_LINEAR);
             gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER,
-                    GL.GL_NEAREST);
+                    GL.GL_LINEAR);
         }
 
     }

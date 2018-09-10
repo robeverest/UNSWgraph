@@ -91,8 +91,8 @@ public class MinificationExample extends Application3D implements KeyListener {
 
         // Load procedural textures
 //        textureGrass = new Texture(gl, chessImageBuf, IMAGE_SIZE, false);
-        textureGrass = new Texture(gl, "res/textures/grass.bmp", "bmp", false);
-        textureSky = new Texture(gl, "res/textures/sky.bmp", "bmp", false);
+        textureGrass = new Texture(gl, "res/textures/grass.bmp", "bmp", true);
+        textureSky = new Texture(gl, "res/textures/sky.bmp", "bmp", true);
 
         shader = new Shader(gl, "shaders/vertex_tex_3d.glsl",
                 "shaders/fragment_tex_3d.glsl");
