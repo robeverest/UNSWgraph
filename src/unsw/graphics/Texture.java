@@ -20,7 +20,7 @@ public class Texture {
     private int id;
 
     /**
-     * Create a texture from a file. The file must have dimensions that are a 
+     * Create a texture from a file. The file must have dimensions that are a
      * power of 2.
      * @param gl
      * @param fileName
@@ -67,13 +67,21 @@ public class Texture {
         if (mipMapEnabled) {
             // TODO Set texture parameters to enable automatic mipmap generation
             // and bilinear/trilinear filtering
+            gl.glGenerateMipmap(GL.GL_TEXTURE_2D);
+            gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER,
+                    GL.GL_LINEAR);
+            gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER,
+                    GL.GL_LINEAR_MIPMAP_LINEAR);
 
+            float fLargest[] = new float[1];
+            gl.glGetFloatv(GL.GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, fLargest,0);
+            gl.glTexParameterf(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAX_ANISOTROPY_EXT, fLargest[0]);
         } else {
             // Set texture parameters to enable bilinear filtering.
             gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER,
-                    GL.GL_NEAREST);
+                    GL.GL_LINEAR);
             gl.glTexParameteri(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER,
-                    GL.GL_NEAREST);
+                    GL.GL_LINEAR);
         }
 
     }
@@ -90,9 +98,9 @@ public class Texture {
         mipMapEnabled = mipmaps;
         int[] ids = new int[1];
         gl.glGenTextures(1, ids, 0);
-        
+
         id = ids[0];
-        
+
         gl.glBindTexture(GL.GL_TEXTURE_2D, id);
 
         // Specify image data for currently active texture object.
@@ -102,7 +110,7 @@ public class Texture {
         setFilters(gl);
 
     }
-    
+
     /**
      * Create a texture with NO associated buffer.
      * @param gl
@@ -113,15 +121,15 @@ public class Texture {
         mipMapEnabled = false;
         int[] ids = new int[1];
         gl.glGenTextures(1, ids, 0);
-        
+
         id = ids[0];
-        
+
         gl.glBindTexture(GL.GL_TEXTURE_2D, id);
 
         setFilters(gl);
 
     }
-    
+
     /**
      * Create a cube map texture from a multiple files.
      * @param gl
@@ -132,16 +140,16 @@ public class Texture {
     public Texture(GL3 gl, String left, String right, String bottom, String top,
             String front, String back, String extension, boolean mipmaps) {
         mipMapEnabled = mipmaps;
-        
+
         int[] ids = new int[1];
         gl.glGenTextures(1, ids, 0);
         id = ids[0];
 
         gl.glBindTexture(GL.GL_TEXTURE_CUBE_MAP, id);
-        
+
         String[] filenames = {left, right, bottom, top, front, back};
-        int[] faces = {GL.GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 
-                GL.GL_TEXTURE_CUBE_MAP_POSITIVE_X, 
+        int[] faces = {GL.GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
+                GL.GL_TEXTURE_CUBE_MAP_POSITIVE_X,
                 GL.GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,
                 GL.GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
                 GL.GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
@@ -154,22 +162,22 @@ public class Texture {
                 BufferedImage img = ImageIO.read(file); // read file into
                                                         // BufferedImage
                 ImageUtil.flipImageVertically(img);
-    
+
                 data[i] = AWTTextureIO.newTextureData(gl.getGLProfile(), img,
                         false);
-    
+
             } catch (IOException exc) {
                 System.err.println(filenames[i]);
                 exc.printStackTrace();
                 System.exit(1);
             }
-            
+
             gl.glTexImage2D(faces[i], 0, data[i].getInternalFormat(),
-                    data[i].getWidth(), data[i].getHeight(), 0, 
-                    data[i].getPixelFormat(), data[i].getPixelType(), 
+                    data[i].getWidth(), data[i].getHeight(), 0,
+                    data[i].getPixelFormat(), data[i].getPixelType(),
                     data[i].getBuffer());
         }
-        
+
         gl.glTexParameteri(GL.GL_TEXTURE_CUBE_MAP, GL.GL_TEXTURE_MAG_FILTER,
                 GL.GL_LINEAR);
         gl.glTexParameteri(GL.GL_TEXTURE_CUBE_MAP, GL.GL_TEXTURE_MIN_FILTER,

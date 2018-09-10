@@ -109,15 +109,15 @@ public class TexturedCube extends Application3D {
         
         texCoordBuffer = new Point2DBuffer(Arrays.asList(
                 new Point2D(0,0),
-                new Point2D(0,1),
+                new Point2D(0,1f),
                 new Point2D(0.25f,0),
-                new Point2D(0.25f,1),
+                new Point2D(0.25f,1f),
                 new Point2D(0.5f,0),
-                new Point2D(0.5f,1),
+                new Point2D(0.5f,1f),
                 new Point2D(0.75f,0),
-                new Point2D(0.75f,1),
+                new Point2D(0.75f,1f),
                 new Point2D(1,0),
-                new Point2D(1,1)));
+                new Point2D(1,1f)));
         
         indicesBuffer = GLBuffers.newDirectIntBuffer(new int[] {
             0,2,1,
