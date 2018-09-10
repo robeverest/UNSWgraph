@@ -27,6 +27,7 @@ The project is set up as an eclipse project, so can be imported via the import o
 | 0.15    | Week 7 final code   | Final code for cone, bezier and extrusion examples              | [v0.15.zip](https://github.com/robeverest/UNSWgraph/archive/v0.15.zip) |
 | 0.16    | Ass2 starter code   | Starter code for the assignment (NO texture support yet)        | [v0.16.zip](https://github.com/robeverest/UNSWgraph/archive/v0.16.zip) |
 | 0.17    | Week 8 starter code | Incomplete texture support and various texture examples         | [v0.17.zip](https://github.com/robeverest/UNSWgraph/archive/v0.17.zip) |
+| 0.18    | Week 8 final code   | Complete texture support                                        | [v0.18.zip](https://github.com/robeverest/UNSWgraph/archive/v0.18.zip) |
 
 ## Additional notes
 
