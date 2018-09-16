@@ -47,6 +47,11 @@ public class Shader {
      * The vertex texture coordinate attribute for use with glAttribPointer.
      */
     public static final int TEX_COORD = 2;
+    
+    /**
+     * The color attribute for use with glAttribPointer.
+     */
+    public static final int COLOR = 3;
 
     private int id;
 
@@ -81,6 +86,7 @@ public class Shader {
         gl.glBindAttribLocation(id, POSITION, "position");
         gl.glBindAttribLocation(id, NORMAL, "normal");
         gl.glBindAttribLocation(id, TEX_COORD, "texCoord");
+        gl.glBindAttribLocation(id, COLOR, "color");
         
         shaderProgram.link(gl, System.err);
         
@@ -89,6 +95,8 @@ public class Shader {
             gl.glEnableVertexAttribArray(NORMAL);
         if (gl.glGetAttribLocation(id, "texCoord") != -1)
             gl.glEnableVertexAttribArray(TEX_COORD);
+        if (gl.glGetAttribLocation(id, "color") != -1)
+            gl.glEnableVertexAttribArray(COLOR);
         
     }
 
