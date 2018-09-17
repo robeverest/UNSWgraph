@@ -29,6 +29,7 @@ The project is set up as an eclipse project, so can be imported via the import o
 | 0.17    | Week 8 starter code | Incomplete texture support and various texture examples         | [v0.17.zip](https://github.com/robeverest/UNSWgraph/archive/v0.17.zip) |
 | 0.18    | Week 8 final code   | Complete texture support                                        | [v0.18.zip](https://github.com/robeverest/UNSWgraph/archive/v0.18.zip) |
 | 0.19    | Week 9 starter code | Antialiasing and a particle system example                      | [v0.19.zip](https://github.com/robeverest/UNSWgraph/archive/v0.19.zip) |
+| 0.20    | Week 9 final code   | Completed particle example and multisampling                    | [v0.20.zip](https://github.com/robeverest/UNSWgraph/archive/v0.20.zip) |
 
 ## Additional notes
 
