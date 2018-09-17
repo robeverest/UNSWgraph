@@ -42,13 +42,15 @@ public class ParticleSystem extends Application3D implements KeyListener {
     private String textureFileName = "res/textures/star.png";
     private String textureExt = "png";
 
-    private Point3DBuffer positions;
+    private Point3DBuffer velocities;
     private ColorBuffer colors;
 
-    private int positionsName;
+    private int velocitiesName;
     private int colorsName;
 
     private Shader shader;
+    
+    private int time;
 
     public ParticleSystem() {
         super("Particle system", 600, 600);
@@ -87,27 +89,36 @@ public class ParticleSystem extends Application3D implements KeyListener {
         }
 
         // Allocate the buffers
-        positions = new Point3DBuffer(MAX_PARTICLES);
+        velocities = new Point3DBuffer(MAX_PARTICLES);
         colors = new ColorBuffer(MAX_PARTICLES);
 
         int[] names = new int[3];
         gl.glGenBuffers(3, names, 0);
 
-        positionsName = names[0];
+        velocitiesName = names[0];
         colorsName = names[1];
+        
+        // Update the buffers
+        for (int i = 0; i < MAX_PARTICLES; i++) {
+            velocities.put(i, particles[i].speedX, particles[i].speedY, particles[i].speedZ);
+            colors.put(i, particles[i].r, particles[i].g, particles[i].b,
+                    particles[i].life);
+        }
 
-        gl.glBindBuffer(GL.GL_ARRAY_BUFFER, positionsName);
+        gl.glBindBuffer(GL.GL_ARRAY_BUFFER, velocitiesName);
         gl.glBufferData(GL.GL_ARRAY_BUFFER, MAX_PARTICLES * 3 * Float.BYTES,
-                null, GL.GL_DYNAMIC_DRAW);
+                velocities.getBuffer(), GL.GL_DYNAMIC_DRAW);
         gl.glVertexAttribPointer(Shader.POSITION, 3, GL.GL_FLOAT, false, 0, 0);
 
         gl.glBindBuffer(GL.GL_ARRAY_BUFFER, colorsName);
         gl.glBufferData(GL.GL_ARRAY_BUFFER, MAX_PARTICLES * 4 * Float.BYTES,
-                null, GL.GL_DYNAMIC_DRAW);
+                colors.getBuffer(), GL.GL_DYNAMIC_DRAW);
         gl.glVertexAttribPointer(Shader.COLOR, 4, GL.GL_FLOAT, false, 0, 0);
 
         // Set the point size
         gl.glPointSize(50);
+        
+        Shader.setFloat(gl, "gravity", gravityY);
     }
 
     /**
@@ -124,21 +135,8 @@ public class ParticleSystem extends Application3D implements KeyListener {
     public void display(GL3 gl) {
         super.display(gl);
         Shader.setPenColor(gl, Color.WHITE);
-
-        // Update the buffers
-        for (int i = 0; i < MAX_PARTICLES; i++) {
-            positions.put(i, particles[i].x, particles[i].y, particles[i].z);
-            colors.put(i, particles[i].r, particles[i].g, particles[i].b,
-                    particles[i].life);
-        }
-
-        gl.glBindBuffer(GL.GL_ARRAY_BUFFER, positionsName);
-        gl.glBufferSubData(GL.GL_ARRAY_BUFFER, 0,
-                MAX_PARTICLES * 3 * Float.BYTES, positions.getBuffer());
-
-        gl.glBindBuffer(GL.GL_ARRAY_BUFFER, colorsName);
-        gl.glBufferSubData(GL.GL_ARRAY_BUFFER, 0,
-                MAX_PARTICLES * 4 * Float.BYTES, colors.getBuffer());
+        
+        Shader.setInt(gl, "time", time);
 
         // Draw the particles
         Shader.setInt(gl, "tex", 0);
@@ -151,24 +149,26 @@ public class ParticleSystem extends Application3D implements KeyListener {
 
         // Update the particles
         for (int i = 0; i < MAX_PARTICLES; i++) {
-            // Move the particle
-            particles[i].x += particles[i].speedX;
-            particles[i].y += particles[i].speedY;
-            particles[i].z += particles[i].speedZ;
-
-            // Apply the gravity force on y-axis
-            particles[i].speedY += gravityY;
-
-            // Slowly kill it
-            particles[i].life -= 0.002;
-
-            if (burst) {
-                particles[i].burst();
-            }
+//            // Move the particle
+//            particles[i].x += particles[i].speedX;
+//            particles[i].y += particles[i].speedY;
+//            particles[i].z += particles[i].speedZ;
+//
+//            // Apply the gravity force on y-axis
+//            particles[i].speedY += gravityY;
+//
+//            // Slowly kill it
+//            particles[i].life -= 0.002;
+//
+//            if (burst) {
+//                particles[i].burst();
+//            }
 
         }
         if (burst)
             burst = false;
+        
+        time++;
 
     }
 
@@ -176,7 +176,7 @@ public class ParticleSystem extends Application3D implements KeyListener {
     public void destroy(GL3 gl) {
         super.destroy(gl);
 
-        gl.glDeleteBuffers(2, new int[] { positionsName, colorsName }, 0);
+        gl.glDeleteBuffers(2, new int[] { velocitiesName, colorsName }, 0);
         texture.destroy(gl);
     }
 
