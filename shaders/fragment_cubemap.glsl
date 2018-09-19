@@ -23,22 +23,24 @@ in vec3 m;
 
 void main()
 {
+	vec3 m_unit = normalize(m);
+
     // Compute the s, v and r vectors
     vec3 s = normalize(view_matrix*vec4(lightPos,1) - viewPosition).xyz;
     vec3 v = normalize(-viewPosition.xyz);
-    vec3 r = normalize(reflect(-s,m));
+    vec3 r = normalize(reflect(-s,m_unit));
 
     vec3 ambient = ambientIntensity*ambientCoeff;
-    vec3 diffuse = max(lightIntensity*diffuseCoeff*dot(m,s), 0.0);
+    vec3 diffuse = max(lightIntensity*diffuseCoeff*dot(m_unit,s), 0.0);
     vec3 specular;
 
     // Only show specular reflections for the front face
-    if (dot(m,s) > 0)
+    if (dot(m_unit,s) > 0)
         specular = max(lightIntensity*specularCoeff*pow(dot(r,v),phongExp), 0.0);
     else
         specular = vec3(0);
 
     vec4 ambientAndDiffuse = vec4(ambient + diffuse, 1);
 
-    outputColor = ambientAndDiffuse*input_color*texture(tex, reflect(-v,m)) + vec4(specular, 1);
+    outputColor = ambientAndDiffuse*input_color*texture(tex, reflect(-v,m_unit)) + vec4(specular, 1);
 }
