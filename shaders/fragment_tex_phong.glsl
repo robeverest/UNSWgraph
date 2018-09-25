@@ -32,7 +32,7 @@ void main()
     vec3 r = normalize(reflect(-s,m_unit));
 
     vec3 ambient = ambientIntensity*ambientCoeff;
-    vec3 diffuse = max(lightIntensity*diffuseCoeff*dot(normalize(m_unit),s), 0.0);
+    vec3 diffuse = max(lightIntensity*diffuseCoeff*dot(m_unit,s), 0.0);
     vec3 specular;
 
     // Only show specular reflections for the front face
