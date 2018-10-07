@@ -119,4 +119,8 @@ public class Vector3 {
     public Point3D asPoint3D() {
         return new Point3D(getX(), getY(), getZ());
     }
+
+    public Vector3 minus(Vector3 v) {
+        return plus(v.negate());
+    }
 }
