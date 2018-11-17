@@ -112,7 +112,7 @@ public class ConeExample extends Application3D implements MouseListener{
         	float x = getX(t);
             float y = getY(t);
             
-            normals.add(new Vector3(x, y, radius/height));
+            normals.add(new Vector3(x, y, radius*radius/height));
         }
         
         
@@ -124,7 +124,7 @@ public class ConeExample extends Application3D implements MouseListener{
  	   	  
            vertices.add(new Point3D(getX(t), getY(t), 0));
            
-           normals.add(new Vector3(x, y, radius/height));
+           normals.add(new Vector3(x, y, radius*radius/height));
            
            indices.add(i+NUM_SLICES);
            indices.add((i+1) % NUM_SLICES + NUM_SLICES);
