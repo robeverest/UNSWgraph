@@ -44,7 +44,7 @@ void main() {
     // Compute the s, v and r vectors
     vec3 s = normalize(view_matrix*vec4(lightPos,1) - viewPosition).xyz;
     vec3 v = normalize(-viewPosition.xyz);
-    vec3 h = (m + s)/2;
+    vec3 h = (v + s)/2;
 
     float ambient = ambientIntensity*ambientCoeff;
     float diffuse = max(lightIntensity*diffuseCoeff*dot(m,s), 0.0);
