@@ -21,7 +21,6 @@ public class HelloDot extends Application2D {
 
     public HelloDot() {
         super("HelloDot", 600, 600);
-        this.setBackground(new Color(1f, 1f, 1f));
     }
 
     public static void main(String[] args) {
