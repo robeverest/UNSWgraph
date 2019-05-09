@@ -3,8 +3,6 @@
  */
 package unsw.graphics.examples;
 
-import java.awt.Color;
-
 import com.jogamp.opengl.GL3;
 
 import unsw.graphics.Application2D;
