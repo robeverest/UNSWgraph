@@ -1,6 +1,6 @@
 This library is being written as part of the Computer Graphics course at UNSW.
 
-If you wish to fork it to work on assignments, please ensure that you fork it into a **private** repository. GitHub offers free private repositories as part of it's student developer pack, available [here](https://education.github.com/pack).
+If you wish to work on assignments, please don't just *fork* this repo as your fork will be public. Instead, duplicate it into a private copy. Instructions for duplicating a repo are available [here](https://help.github.com/en/articles/duplicating-a-repository).
 
 The project is set up as an eclipse project, so can be imported via the import option *Existing Projects into Workspace*.
 
