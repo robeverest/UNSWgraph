@@ -51,6 +51,12 @@ public abstract class Application2D extends Application {
 
         // Clear the screen with the defined clear color
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+        
+        // The default model transform is the identity transform
+        Shader.setModelMatrix(gl, Matrix3.identity());
+        
+        // ... as is the view matrix
+        Shader.setViewMatrix(gl, Matrix3.identity());
     }
 
     @Override
@@ -61,9 +67,6 @@ public abstract class Application2D extends Application {
 
         // Make points big (10 pixels wide) so we can see them clearly
         gl.glPointSize(10);
-        
-        // The default model transform is the identity transform
-        Shader.setModelMatrix(gl, Matrix3.identity());
     }
 
     @Override
