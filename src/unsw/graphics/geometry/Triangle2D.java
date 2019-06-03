@@ -9,6 +9,7 @@ import java.util.List;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL3;
 
+import unsw.graphics.CoordFrame2D;
 import unsw.graphics.Point2DBuffer;
 import unsw.graphics.Shader;
 
@@ -43,7 +44,7 @@ public class Triangle2D {
         this.points = points;
     }
 
-    public void draw(GL3 gl) {        
+    public void draw(GL3 gl, CoordFrame2D frame) {        
         Point2DBuffer buffer = new Point2DBuffer(points);
 
         int[] names = new int[1];
@@ -53,8 +54,13 @@ public class Triangle2D {
                 buffer.getBuffer(), GL.GL_STATIC_DRAW);
 
         gl.glVertexAttribPointer(Shader.POSITION, 2, GL.GL_FLOAT, false, 0, 0);
+        Shader.setModelMatrix(gl, frame.getMatrix());
         gl.glDrawArrays(GL3.GL_TRIANGLES, 0, points.size());
 
         gl.glDeleteBuffers(1, names, 0);
+    }
+    
+    public void draw(GL3 gl) {
+        draw(gl, CoordFrame2D.identity());
     }
 }

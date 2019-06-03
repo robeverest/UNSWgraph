@@ -3,6 +3,7 @@ package unsw.graphics.geometry;
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL3;
 
+import unsw.graphics.CoordFrame2D;
 import unsw.graphics.Point2DBuffer;
 import unsw.graphics.Shader;
 
@@ -29,13 +30,14 @@ public class Point2D {
     }
 
     /**
-     * Draw this point as a dot on the canvas.
+     * Draw this point as a dot in the given coordinate frame.
      * 
      * This is useful for debugging and for very trivial examples.
      * 
      * @param gl
+     * @param frame
      */
-    public void draw(GL3 gl) {
+    public void draw(GL3 gl, CoordFrame2D frame) {
         Point2DBuffer buffer = new Point2DBuffer(1);
         buffer.put(0, this);
         int[] names = new int[1];
@@ -47,10 +49,21 @@ public class Point2D {
                 GL.GL_STATIC_DRAW);
 
         gl.glVertexAttribPointer(Shader.POSITION, 2, GL.GL_FLOAT, false, 0, 0);
+        Shader.setModelMatrix(gl, frame.getMatrix());
         gl.glDrawArrays(GL.GL_POINTS, 0, 1);
 
         gl.glDeleteBuffers(1, names, 0);
-
+    }
+    
+    /**
+     * Draw this point as a dot on the canvas.
+     * 
+     * This is useful for debugging and for very trivial examples.
+     * 
+     * @param gl
+     */
+    public void draw(GL3 gl) {
+        draw(gl, CoordFrame2D.identity());
     }
 
     public float getX() {
