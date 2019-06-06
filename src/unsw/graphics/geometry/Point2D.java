@@ -6,6 +6,7 @@ import com.jogamp.opengl.GL3;
 import unsw.graphics.CoordFrame2D;
 import unsw.graphics.Point2DBuffer;
 import unsw.graphics.Shader;
+import unsw.graphics.Vector3;
 
 /**
  * A point in 2D space.
@@ -72,6 +73,25 @@ public class Point2D {
 
     public float getY() {
         return y;
+    }
+    
+    /**
+     * Translate the point by the given vector
+     * @param dx
+     * @param dy
+     * @return
+     */
+    public Point2D translate(float dx, float dy) {
+        return new Point2D(x + dx, y + dy);
+    }
+    
+    /**
+     * Convert this point to a homogenous coordinate (1 for the z value)
+     * 
+     * @return
+     */
+    public Vector3 asHomogenous() {
+        return new Vector3(new float[] {x, y, 1});
     }
 
 }
