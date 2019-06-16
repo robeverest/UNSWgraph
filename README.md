@@ -12,6 +12,7 @@ The project is set up as an eclipse project, so can be imported via the import o
 | 0.2     | Week 1 Monday final code    | Lines, line strips and triangles.  | [v0.2.zip](https://github.com/robeverest/UNSWgraph/archive/v0.2.zip) |
 | 0.3     | Week 1 Tuesday starter code | Transformations                    | [v0.3.zip](https://github.com/robeverest/UNSWgraph/archive/v0.3.zip) |
 | 0.4     | Assignment starter code     | Lab Solution, ass1 base code       | [v0.4.zip](https://github.com/robeverest/UNSWgraph/archive/v0.4.zip) |
+| 0.5     | Week 3 Monday starter code  | Mandelbrot starter code            | [v0.5.zip](https://github.com/robeverest/UNSWgraph/archive/v0.5.zip) |
 
 ## Additional notes
 
