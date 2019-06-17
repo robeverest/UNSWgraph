@@ -155,6 +155,42 @@ public class Matrix4 {
         return new Matrix4(values);
     }
     
+    /**
+     * Create a perspective projection matrix defined by a frustum.
+     * @param left
+     * @param right
+     * @param bottom
+     * @param top
+     * @param near
+     * @param far
+     * @return
+     */
+    public static Matrix4 frustum(float left, float right, float bottom, float top, float near, 
+            float far) {
+        float[] values = new float[] {
+            2*near/(right-left), 0, 0, 0,                                                     // i
+            0, 2*near/(top-bottom), 0, 0,                                                     // j
+            (right+left)/(right-left), (top+bottom)/(top-bottom), -(far+near)/(far-near), -1, // k
+            0, 0, -2*far*near/(far-near), 0                                                   // phi
+        };
+        return new Matrix4(values);
+    }
+    
+    /**
+     * Create a perspective projection matrix defined by a the vetical field of view, the aspect
+     * ratio and near and far clipping planes.
+     * @param fovy The field of view in degrees
+     * @param aspectRatio
+     * @param near
+     * @param far
+     * @return
+     */
+    public static Matrix4 perspective(float fovy, float aspectRatio, float near, float far) {
+        float halfHeight = (float) (near*Math.tan(Math.toRadians(fovy)/2));
+        return Matrix4.frustum(-aspectRatio*halfHeight, aspectRatio*halfHeight, 
+                -halfHeight, halfHeight, near, far);
+    }
+    
     @Override
     public String toString() {
         String str = "";
