@@ -42,7 +42,7 @@ public class ZFightingExample extends Application3D implements MouseListener {
     @Override
     public void reshape(GL3 gl, int width, int height) {
         super.reshape(gl, width, height);
-        Shader.setProjMatrix(gl, Matrix4.perspective(60, 1, 1, 10));
+        Shader.setProjMatrix(gl, Matrix4.perspective(60, 1, 1, 100));
     }
 
     public static void main(String[] args) {
