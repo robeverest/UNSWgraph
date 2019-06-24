@@ -6,7 +6,12 @@ uniform mat3 model_matrix;
 
 uniform mat3 view_matrix;
 
+out vec2 localPosition;
+
 void main() {
+	// Output the local position
+	localPosition = position;
+
 	// The global position is in homogenous coordinates
     vec3 globalPosition = model_matrix * vec3(position, 1);
 
