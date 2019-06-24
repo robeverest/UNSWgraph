@@ -14,10 +14,15 @@ import unsw.graphics.geometry.TriangleMesh;
 
 /**
  * This is a simple application for viewing models.
- *
- * Different PLY models have vastly different scales, so you may need to scale the model up or down
- * to view it properly.
- *
+ * 
+ * Different PLY models have vastly different scales, so you may need to scale
+ * the model up or down to view it properly.
+ * 
+ * High resolution models are not included with UNSWgraph due to their large
+ * file sizes. They can be downloaded here:
+ * 
+ * https://www.dropbox.com/s/tg2y5kvzbgb3pco/big.zip?dl=1
+ * 
  * @author Robert Clifton-Everest
  *
  */
@@ -43,7 +48,8 @@ public class ModelViewer extends Application3D {
         model.init(gl);
         base.init(gl);
         if (USE_LIGHTING) {
-            Shader shader = new Shader(gl, "shaders/vertex_gouraud.glsl", "shaders/fragment_gouraud.glsl");
+            Shader shader = new Shader(gl, "shaders/vertex_gouraud.glsl",
+                    "shaders/fragment_gouraud.glsl");
             shader.use(gl);
         }
     }
@@ -65,10 +71,9 @@ public class ModelViewer extends Application3D {
         super.display(gl);
 
         // Compute the view transform
-        CoordFrame3D view = CoordFrame3D.identity()
-                .translate(0, 0, -2)
-        // Uncomment the line below to rotate the camera
-//                .rotateY(rotateY)
+        CoordFrame3D view = CoordFrame3D.identity().translate(0, 0, -2)
+                // Uncomment the line below to rotate the camera
+                // .rotateY(rotateY)
                 .translate(0, 0, 2);
         Shader.setViewMatrix(gl, view.getMatrix());
 
@@ -84,30 +89,26 @@ public class ModelViewer extends Application3D {
         Shader.setFloat(gl, "phongExp", 16f);
 
         // The coordinate frame for both objects
-        CoordFrame3D frame = CoordFrame3D.identity()
-                .translate(0, -0.5f, -2);
+        CoordFrame3D frame = CoordFrame3D.identity().translate(0, -0.5f, -2);
 
         // The coordinate frame for the model we're viewing.
         CoordFrame3D modelFrame = frame
-        //Uncomment the line below to rotate the model
+                // Uncomment the line below to rotate the model
                 .rotateY(rotateY)
 
-        // This translation and scale works well for the bunny and dragon1
-                .translate(0, -0.2f, 0)
-                .scale(5, 5, 5);
+                // This translation and scale works well for the bunny and
+                // dragon1
+                .translate(0, -0.2f, 0).scale(5, 5, 5);
         // This scale works well for the apple
-//                .translate(0, 0f, 0)
-//                .scale(5, 5, 5);
+        // .scale(5, 5, 5);
         // This translation and scale works well for dragon2
-//                .translate(0,0.33f,0)
-//                .scale(0.008f, 0.008f, 0.008f);
+        // .translate(0,0.33f,0).scale(0.008f, 0.008f, 0.008f);
         Shader.setPenColor(gl, new Color(0.5f, 0.5f, 0.5f));
         model.draw(gl, modelFrame);
 
         // A blue base for the model to sit on.
-        CoordFrame3D baseFrame = frame
-                .translate(0, -0.5f, 0)
-                .scale(0.5f, 0.5f, 0.5f);
+        CoordFrame3D baseFrame = 
+                frame.translate(0, -0.5f, 0).scale(0.5f, 0.5f, 0.5f);
         Shader.setPenColor(gl, Color.BLUE);
         base.draw(gl, baseFrame);
 
