@@ -17,7 +17,7 @@ import unsw.graphics.geometry.Point3D;
 
 /**
  * A simple example that draws a cube using indexing.
- * 
+ *
  * @author Robert Clifton-Everest
  *
  */
@@ -56,21 +56,21 @@ public class IndexedCube extends Application3D {
     /**
      * Draw a cube centered around (0,0) with bounds of length 1 in each
      * direction.
-     * 
+     *
      * @param gl
      * @param frame
      */
     private void drawCube(GL3 gl, CoordFrame3D frame) {
         Point3DBuffer vertexBuffer = new Point3DBuffer(Arrays.asList(
-                new Point3D(-1,-1,1), 
-                new Point3D(1,-1,1), 
+                new Point3D(-1,-1,1),
+                new Point3D(1,-1,1),
                 new Point3D(1,1,1),
                 new Point3D(-1,1,1),
-                new Point3D(-1,-1,-1), 
-                new Point3D(1,-1,-1), 
+                new Point3D(-1,-1,-1),
+                new Point3D(1,-1,-1),
                 new Point3D(1,1,-1),
                 new Point3D(-1,1,-1)));
-        
+
         IntBuffer indicesBuffer = GLBuffers.newDirectIntBuffer(new int[] {
             0,1,2,
             2,3,0,
@@ -88,23 +88,23 @@ public class IndexedCube extends Application3D {
 
         int[] names = new int[2];
         gl.glGenBuffers(2, names, 0);
-        
+
         int verticesName = names[0];
         int indicesName = names[1];
-        
+
         gl.glBindBuffer(GL.GL_ARRAY_BUFFER, verticesName);
         gl.glBufferData(GL.GL_ARRAY_BUFFER, vertexBuffer.capacity() * 3 * Float.BYTES,
                 vertexBuffer.getBuffer(), GL.GL_STATIC_DRAW);
-        
+
         gl.glVertexAttribPointer(Shader.POSITION, 3, GL.GL_FLOAT, false, 0, 0);
-        
+
         gl.glBindBuffer(GL.GL_ELEMENT_ARRAY_BUFFER, indicesName);
         gl.glBufferData(GL.GL_ELEMENT_ARRAY_BUFFER, indicesBuffer.capacity() * Integer.BYTES,
                 indicesBuffer, GL.GL_STATIC_DRAW);
-        
+
         Shader.setModelMatrix(gl, frame.getMatrix());
-        gl.glDrawElements(GL.GL_TRIANGLES, indicesBuffer.capacity(), 
+        gl.glDrawElements(GL.GL_TRIANGLES, indicesBuffer.capacity(),
                 GL.GL_UNSIGNED_INT, 0);
-        gl.glDeleteBuffers(1, names, 0);
+        gl.glDeleteBuffers(2, names, 0);
     }
 }
