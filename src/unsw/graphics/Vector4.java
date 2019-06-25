@@ -64,4 +64,22 @@ public class Vector4 {
     public Point3D asPoint3D() {
         return new Point3D(values[0], values[1], values[2]);
     }
+
+    /** 
+     * Subtract v from this vector.
+     * @param v
+     * @return
+     */
+    public Vector4 minus(Vector4 v) {
+        return new Vector4(values[0] - v.values[0], values[1] - v.values[1], 
+                values[2] - v.values[2], values[3] - v.values[3]);
+    }
+
+    /**
+     * Remove the 4th (w) component
+     * @return
+     */
+    public Vector3 trim() {
+        return new Vector3(values[0], values[1], values[2]);
+    }
 }

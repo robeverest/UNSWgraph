@@ -6,6 +6,7 @@ import com.jogamp.opengl.GL3;
 import unsw.graphics.CoordFrame3D;
 import unsw.graphics.Point3DBuffer;
 import unsw.graphics.Shader;
+import unsw.graphics.Vector3;
 import unsw.graphics.Vector4;
 
 /**
@@ -99,6 +100,15 @@ public class Point3D {
      */
     public Vector4 asHomogenous() {
         return new Vector4(new float[] {x, y, z, 1});
+    }
+
+    /**
+     * Subtract the given point from this point, yielding a vector.
+     * @param p
+     * @return
+     */
+    public Vector3 minus(Point3D p) {
+        return asHomogenous().minus(p.asHomogenous()).trim();
     }
 
 }

@@ -63,4 +63,55 @@ public class Vector3 {
     public Point2D asPoint2D() {
         return new Point2D(values[0], values[1]);
     }
+
+    /**
+     * Compute the cross product of this vector with v.
+     * @param v
+     * @return
+     */
+    public Vector3 cross(Vector3 v) {
+        return new Vector3(values[1]*v.values[2] - values[2]*v.values[1],
+                values[2]*v.values[0] - values[0]*v.values[2],
+                values[0]*v.values[1] - values[1]*v.values[0]);
+    }
+
+    /**
+     * Add 0 as a w component.
+     * @return
+     */
+    public Vector4 extend() {
+        return new Vector4(values[0], values[1], values[2], 0);
+    }
+
+    public float getX() {
+        return values[0];
+    }
+    
+    public float getY() {
+        return values[1];
+    }
+    
+    public float getZ() {
+        return values[2];
+    }
+
+    public Vector3 normalize() {
+        return scale(1/length());
+    }
+
+    public Vector3 scale(float s) {
+        return new Vector3(values[0] * s, values[1] * s, values[2] * s);
+    }
+
+    private float length() {
+        return (float) Math.sqrt(values[0]*values[0] + values[1]*values[1] + values[2]*values[2]);
+    }
+
+    public Vector3 negate() {
+        return scale(-1);
+    }
+
+    public Vector3 plus(Vector3 b) {
+        return new Vector3(getX() + b.getX(), getY() + b.getY(), getZ() + b.getZ());
+    }
 }

@@ -129,4 +129,22 @@ public class CoordFrame3D {
        kAxis.draw(gl,this);
        Shader.setPenColor(gl, Color.BLACK);
     }
+
+    /**
+     * Transform the given point under this coordinate frame.
+     * @param p
+     * @return
+     */
+    public Point3D transform(Point3D p) {
+        return matrix.multiply(p.asHomogenous()).asPoint3D();
+    }
+
+    /**
+     * Transform the given vector under this coordinate frame.
+     * @param v
+     * @return
+     */
+    public Vector3 transform(Vector3 v) {
+        return matrix.multiply(v.extend()).trim();
+    }
 }
