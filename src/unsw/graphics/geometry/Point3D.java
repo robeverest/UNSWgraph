@@ -84,6 +84,15 @@ public class Point3D {
     
     /**
      * Translate the point by the given vector
+     * @param v
+     * @return
+     */
+    public Point3D translate(Vector3 v) {
+        return translate(v.getX(), v.getY(), v.getZ());
+    }
+    
+    /**
+     * Translate the point by the given vector
      * @param dx
      * @param dy
      * @param dz

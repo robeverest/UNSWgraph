@@ -79,4 +79,8 @@ public class Point3DBuffer {
         return capacity;
     }
 
+    public Point3D get(int i) {
+        return new Point3D(floatBuffer.get(i*3), floatBuffer.get(i*3 + 1), floatBuffer.get(i*3 + 2));
+    }
+
 }
