@@ -15,6 +15,7 @@ The project is set up as an eclipse project, so can be imported via the import o
 | 0.5     | Week 3 Monday starter code  | Mandelbrot starter code            | [v0.5.zip](https://github.com/robeverest/UNSWgraph/archive/v0.5.zip) |
 | 0.6     | Week 3 Tuesday starter code | 3D applications                    | [v0.6.zip](https://github.com/robeverest/UNSWgraph/archive/v0.6.zip) |
 | 0.7     | Week 4 Monday starter code  | More 3D                            | [v0.7.zip](https://github.com/robeverest/UNSWgraph/archive/v0.7.zip) |
+| 0.8     | Week 4 Tuesday starter code | Meshes and Gouraud shading         | [v0.8.zip](https://github.com/robeverest/UNSWgraph/archive/v0.8.zip) |
 
 ## Additional notes
 
