@@ -14,15 +14,15 @@ import unsw.graphics.geometry.TriangleMesh;
 
 /**
  * This is a simple application for viewing models.
- * 
+ *
  * Different PLY models have vastly different scales, so you may need to scale
  * the model up or down to view it properly.
- * 
+ *
  * High resolution models are not included with UNSWgraph due to their large
  * file sizes. They can be downloaded here:
- * 
+ *
  * https://www.dropbox.com/s/tg2y5kvzbgb3pco/big.zip?dl=1
- * 
+ *
  * @author Robert Clifton-Everest
  *
  */
@@ -39,7 +39,7 @@ public class ModelViewer extends Application3D {
     public ModelViewer() throws IOException {
         super("Model viewer", 600, 600);
         model = new TriangleMesh("res/models/bunny.ply", true);
-        base = new TriangleMesh("res/models/cube.ply", true);
+        base = new TriangleMesh("res/models/cube_normals.ply", true);
     }
 
     @Override
@@ -107,14 +107,14 @@ public class ModelViewer extends Application3D {
         model.draw(gl, modelFrame);
 
         // A blue base for the model to sit on.
-        CoordFrame3D baseFrame = 
+        CoordFrame3D baseFrame =
                 frame.translate(0, -0.5f, 0).scale(0.5f, 0.5f, 0.5f);
         Shader.setPenColor(gl, Color.BLUE);
         base.draw(gl, baseFrame);
 
         rotateY += 1;
     }
-    
+
     @Override
     public void destroy(GL3 gl) {
         super.destroy(gl);
