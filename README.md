@@ -18,6 +18,7 @@ The project is set up as an eclipse project, so can be imported via the import o
 | 0.8     | Week 4 Tuesday starter code | Meshes and Gouraud shading         | [v0.8.zip](https://github.com/robeverest/UNSWgraph/archive/v0.8.zip)   |
 | 0.9     | Week 5 Monday starter code  | Phong and flat shading             | [v0.9.zip](https://github.com/robeverest/UNSWgraph/archive/v0.9.zip)   |
 | 0.10    | Assignment 2 starter code   | Coloured lighting, ass2 base code  | [v0.10.zip](https://github.com/robeverest/UNSWgraph/archive/v0.10.zip) |
+| 0.11    | Week 5 Tuesday starter code | Curve and modelling examples       | [v0.11.zip](https://github.com/robeverest/UNSWgraph/archive/v0.11.zip) |
 
 ## Additional notes
 
