@@ -5,7 +5,9 @@ package unsw.graphics.geometry;
 
 import java.io.IOException;
 import java.nio.IntBuffer;
+import java.util.List;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.smurn.jply.Element;
 import org.smurn.jply.ElementReader;
 import org.smurn.jply.PlyReader;
@@ -67,6 +69,23 @@ public class TriangleMesh {
      * The name of the indices buffer according to OpenGL
      */
     private int indicesName;
+
+    /**
+     * Create a triangle mesh with the given list of vertices and indices. The
+     * third argument indicates whether to generate vertex normals. If false,
+     * no normals are generated.
+     * @param vertices
+     * @param indices
+     * @param vertexNormals
+     */
+    public TriangleMesh(List<Point3D> vertices, List<Integer> indices, boolean vertexNormals) {
+        this.vertices = new Point3DBuffer(vertices);
+        this.indices = GLBuffers.newDirectIntBuffer(ArrayUtils.toPrimitive(indices.toArray(new Integer[0])));
+        if (vertexNormals) {
+            normals = new Point3DBuffer(vertices.size());
+            computeNormals();
+        }
+    }
 
     /**
      * Construct a triangle with the given PLY file.
