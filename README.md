@@ -20,7 +20,7 @@ The project is set up as an eclipse project, so can be imported via the import o
 | 0.10    | Assignment 2 starter code   | Coloured lighting, ass2 base code  | [v0.10.zip](https://github.com/robeverest/UNSWgraph/archive/v0.10.zip) |
 | 0.11    | Week 5 Tuesday starter code | Curve and modelling examples       | [v0.11.zip](https://github.com/robeverest/UNSWgraph/archive/v0.11.zip) |
 | 0.12    | Week 6 Monday starter code  | Incomplete texture support         | [v0.12.zip](https://github.com/robeverest/UNSWgraph/archive/v0.12.zip) |
-| 0.13    | Week 6 Monday starter code  | Cubemaps, antialiasing             | [v0.13.zip](https://github.com/robeverest/UNSWgraph/archive/v0.13.zip) |
+| 0.13    | Week 6 Tuesday starter code  | Cubemaps, antialiasing             | [v0.13.zip](https://github.com/robeverest/UNSWgraph/archive/v0.13.zip) |
 
 ## Additional notes
 
