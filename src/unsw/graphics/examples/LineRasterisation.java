@@ -30,10 +30,10 @@ public class LineRasterisation extends Application3D {
     private static final int SIZE = 64;
 
     // The start and end points of the line.
-    private static final int START_X = 10;
-    private static final int START_Y = 10;
-    private static final int END_X = 40;
-    private static final int END_Y = 30;
+    private static final int START_X = 20;
+    private static final int START_Y = 20;
+    private static final int END_X = 50;
+    private static final int END_Y = 40;
 
     // Buffer for a fake framebuffer
     private ByteBuffer frameBuffer;
@@ -51,13 +51,25 @@ public class LineRasterisation extends Application3D {
     // Draws a line
     private void drawLine(int x0, int y0, int x1, int y1) {
         // Bad
-        float m = (y1 - y0) / (float) (x1 - x0);
-        float b = y0 - m * x0;
-
-        for (int x = x0; x <= x1; x++) {
-            int y = (int) Math.round(m * x + b);
-            drawPixel(x, y);
-        }
+//        float m = (y1 - y0) / (float) (x1 - x0);
+//        float y = y0 - m * x0;
+//
+//        for (int x = x0; x <= x1; x++) {
+//            y = y + m;
+//            drawPixel(x, (int) Math.round(y));
+//        }
+    	
+    	int y = y0;
+    	int w = x1 - x0; int h = y1 - y0;
+    	int F = 2*h - w;
+    	
+    	for (int x = x0; x <= x1; x++) {
+    		drawPixel(x,y);
+    		if (F < 0) F += 2*h;
+    		else {
+    			F += 2*(h-w); y++;
+    		}
+    	}
 
     }
 

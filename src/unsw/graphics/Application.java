@@ -72,6 +72,9 @@ public abstract class Application implements GLEventListener {
         // The capabilities are what OpenGL features the hardware is capable of
         // using
         GLCapabilities glCapabilities = new GLCapabilities(glProfile);
+        
+        glCapabilities.setNumSamples(8);
+        glCapabilities.setSampleBuffers(true);
 
         // Use newt to create a window with an OpenGL canvas
         window = GLWindow.create(glCapabilities);

@@ -50,11 +50,11 @@ public class AntiAndMulti extends Application3D implements KeyListener {
 //        gl.glHint(GL3.GL_LINE_SMOOTH_HINT, GL3.GL_NICEST);
 
         // Multisampling control.
-//        gl.glEnable(GL3.GL_MULTISAMPLE); // Enable multisampling.
+        gl.glEnable(GL3.GL_MULTISAMPLE); // Enable multisampling.
 
-//        int numSamples[] = new int[1]; // Number of sample buffers.
-//        gl.glGetIntegerv(GL3.GL_SAMPLES, numSamples, 0);
-//        System.out.println("Num samples " + numSamples[0]);
+        int numSamples[] = new int[1]; // Number of sample buffers.
+        gl.glGetIntegerv(GL3.GL_SAMPLES, numSamples, 0);
+        System.out.println("Num samples " + numSamples[0]);
 
         // Move the scene
         CoordFrame3D frame = CoordFrame3D.identity().translate(0, 0, -15)
