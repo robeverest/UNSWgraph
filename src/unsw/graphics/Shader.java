@@ -17,7 +17,7 @@ import unsw.graphics.geometry.Point3D;
  * This class is used to load shaders into UNSWgraph. Note that for a shader to
  * work in this library, there a number of required variables. For 2D
  * applications, in the vertex shader there must be: 
- *   - "in vec2 position" 
+ *   - "in vec2 position" OR "in vec2 velocity" 
  *   - "uniform mat3 model_matrix" 
  *   - "uniform mat3 view_matrix"
  * For 3D applications, there must be:
@@ -52,6 +52,11 @@ public class Shader {
      * The color attribute for use with glAttribPointer.
      */
     public static final int COLOR = 3;
+    
+    /**
+     * The velocity attribute (NOTE: Can't be used in conjunction with POSITION)
+     */
+    public static final int VELOCITY = 0;
 
     private int id;
 
@@ -87,16 +92,20 @@ public class Shader {
         gl.glBindAttribLocation(id, NORMAL, "normal");
         gl.glBindAttribLocation(id, TEX_COORD, "texCoord");
         gl.glBindAttribLocation(id, COLOR, "color");
+        gl.glBindAttribLocation(id, VELOCITY, "velocity");
         
         shaderProgram.link(gl, System.err);
         
-        gl.glEnableVertexAttribArray(POSITION);
+        if (gl.glGetAttribLocation(id, "position") != -1)
+            gl.glEnableVertexAttribArray(POSITION);
         if (gl.glGetAttribLocation(id, "normal") != -1)
             gl.glEnableVertexAttribArray(NORMAL);
         if (gl.glGetAttribLocation(id, "texCoord") != -1)
             gl.glEnableVertexAttribArray(TEX_COORD);
         if (gl.glGetAttribLocation(id, "color") != -1)
             gl.glEnableVertexAttribArray(COLOR);
+        if (gl.glGetAttribLocation(id, "velocity") != -1)
+            gl.glEnableVertexAttribArray(VELOCITY);
         
     }
 
