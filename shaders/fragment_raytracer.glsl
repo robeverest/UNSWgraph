@@ -237,26 +237,26 @@ void main()
 	// Offset so ray starts at the screen
 	ray = offsetRay(ray, 1);
 
-	Hit hit = traceRay(ray);
+	Hit hit = traceRayWithLight(ray);
 
     //Trace reflected rays.
-//	Hit hit2 = hit;
-//	float shininess = 1;
-//	int count = 0;
-//
-//	while (hit2.t > 0 && hit2.t != FLT_MAX && count < 2 && shininess >= 0.001) {
-//		shininess *= hit2.shininess;
-//		//If we're no longer very shiny we're not going to be reflecting much
-//		if (shininess < 0.001)
-//			break;
-//		ray = Ray(hit2.pos, reflect(ray.dir, hit2.normal));
-//		hit2 = traceRayWithLight(offsetRay(ray, 0.001f));
-//
-//		if (hit2.t > 0 && hit2.t != FLT_MAX)
-//			hit.colour += hit2.colour*shininess;
-//		count++;
-//
-//	}
+	Hit hit2 = hit;
+	float shininess = 1;
+	int count = 0;
+
+	while (hit2.t > 0 && hit2.t != FLT_MAX && count < 2 && shininess >= 0.001) {
+		shininess *= hit2.shininess;
+		//If we're no longer very shiny we're not going to be reflecting much
+		if (shininess < 0.001)
+			break;
+		ray = Ray(hit2.pos, reflect(ray.dir, hit2.normal));
+		hit2 = traceRayWithLight(offsetRay(ray, 0.001f));
+
+		if (hit2.t > 0 && hit2.t != FLT_MAX)
+			hit.colour += hit2.colour*shininess;
+		count++;
+
+	}
 
 	outputColor = vec4(hit.colour,1);
 }
