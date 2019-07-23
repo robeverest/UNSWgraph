@@ -22,6 +22,7 @@ The project is set up as an eclipse project, so can be imported via the import o
 | 0.12    | Week 6 Monday starter code  | Incomplete texture support         | [v0.12.zip](https://github.com/robeverest/UNSWgraph/archive/v0.12.zip) |
 | 0.13    | Week 6 Tuesday starter code | Cubemaps, antialiasing             | [v0.13.zip](https://github.com/robeverest/UNSWgraph/archive/v0.13.zip) |
 | 0.14    | Week 7 Monday starter code  | Ray tracer                         | [v0.14.zip](https://github.com/robeverest/UNSWgraph/archive/v0.14.zip) |
+| 0.15    | Week 8 Tuesday starter code | Preprocessing starter code         | [v0.15.zip](https://github.com/robeverest/UNSWgraph/archive/v0.15.zip) |
 
 ## Additional notes
 
